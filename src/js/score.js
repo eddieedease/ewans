@@ -142,44 +142,15 @@
             currentnumber1 = 0;
             currentnumber2 = 0;
 
-            this.game.highgame1 = JSON.parse(localStorage.getItem('highgame1'));
-            this.game.highgame2 = JSON.parse(localStorage.getItem('highgame2'));
-            this.game.highgame3 = JSON.parse(localStorage.getItem('highgame3'));
             this.game.highgame4 = JSON.parse(localStorage.getItem('highgame4'));
 
 
-            // TODO first get off where we came from, and get the current highscoreList
-            // Check boot.js for the current
-            switch (this.game.currentgame) {
-                case "breakout":
-                    console.log("breakouk scores");
-                    scoresArray = this.game.highgame1[0];
-                    nameArray = this.game.highgame1[1];
-                    gamename = this.game.add.bitmapText(this.game.width / 2, this.game.height / 10, 'scorefont', "Raak 'm vaak", 40);
-                    break;
-                case "catmouse":
-                    scoresArray = this.game.highgame2[0];
-                    nameArray = this.game.highgame2[1];
-                    gamename = this.game.add.bitmapText(this.game.width / 2, this.game.height / 10, 'scorefont', "Gooi je zooi", 40);
-                    break;
-                case "racer":
-                    scoresArray = this.game.highgame3[0];
-                    nameArray = this.game.highgame3[1];
-                    gamename = this.game.add.bitmapText(this.game.width / 2, this.game.height / 10, 'scorefont', "Race 'm rond", 40);
-                    break;
-                case "platformer":
-                    scoresArray = this.game.highgame4[0];
-                    nameArray = this.game.highgame4[1];
-                    gamename = this.game.add.bitmapText(this.game.width / 2, this.game.height / 10, 'scorefont', "Prullenbak Bullebak", 40);
-                    break;
-                case "other":
-                    console.log("Not coming from any game");
-                    scoresArray = this.game.highgame1[0];
-                    gamename = this.game.add.bitmapText(this.game.width / 2, this.game.height / 10, 'scorefont', "TEST", 40);
-                    nameArray = this.game.highgame1[1];
-                    //console.log(this.game.highscores[1][2]);
-                    break;
-            }
+
+
+            scoresArray = this.game.highgame4[0];
+            nameArray = this.game.highgame4[1];
+            gamename = this.game.add.bitmapText(this.game.width / 2, this.game.height / 10, 'scorefont', "Prullenbak Bullebak", 40);
+
 
             // checking score player 1
             // TODO here should come the comparison of the highshcores

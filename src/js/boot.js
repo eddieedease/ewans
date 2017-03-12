@@ -29,9 +29,6 @@
 
             // NOTE preparing the scoring, use local storage, retrieve or create new
             this.game.currentgame = "other";
-            this.game.highgame1 = JSON.parse(localStorage.getItem('highgame1'));
-            this.game.highgame2 = JSON.parse(localStorage.getItem('highgame2'));
-            this.game.highgame3 = JSON.parse(localStorage.getItem('highgame3'));
             this.game.highgame4 = JSON.parse(localStorage.getItem('highgame4'));
 
             this.game.credits = localStorage.getItem('credits');
@@ -52,13 +49,14 @@
 
             this.game.aantalphones = parseInt(this.game.aantalphones);
 
-            if (this.game.highgame1 === null) {
+            if (this.game.highgame4 === null) {
+                console.log("yesss!");
                 var booya = [
                     [0, 0, 0, 0, 0],
                     [".....", ".....", ".....", ".....", "....."]
                 ];
-                localStorage.setItem('highgame1', JSON.stringify(booya));
-                this.game.highgame1 = JSON.parse(localStorage.getItem('highgame1'));
+                localStorage.setItem('highgame4', JSON.stringify(booya));
+                this.game.highgame1 = JSON.parse(localStorage.getItem('highgame4'));
             }
 
 
