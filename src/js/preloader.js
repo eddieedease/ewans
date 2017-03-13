@@ -29,22 +29,11 @@
 
             this.load.image('currentletter', 'assets/currentletter.png');
             this.load.image('valid', 'assets/valid.png');
-            this.load.image('timmy', 'assets/timmy.png');
             this.load.image('diamond', 'assets/diamond.png');
             //preload menu
 
             this.load.spritesheet('crp1', 'assets/capred.png', 147, 147);
             this.load.spritesheet('crp2', 'assets/capblue.png', 147, 147);
-
-            this.load.image('hit1', 'assets/hit1.png');
-            this.load.image('hit2', 'assets/hit2.png');
-            this.load.image('hit3', 'assets/hit3.png');
-            this.load.image('hit4', 'assets/hit4.png');
-            this.load.image('hit5', 'assets/hit5.png');
-            this.load.image('hit6', 'assets/hit6.png');
-            this.load.image('gear1', 'assets/gear1.png');
-            this.load.image('gear2', 'assets/gear2.png');
-            this.load.image('phoneaddbg', 'assets/phoneaddbg.png');
 
             this.load.image('backbutton', 'assets/backbutton.png');
             //Films
@@ -52,18 +41,7 @@
 
             this.load.image('knoppenscore', 'assets/knoppenscore.png');
             this.load.image('knoppenscorewhite', 'assets/knoppenscorewhite.png');
-            //preload menu
-            this.load.image('mode1pmini', 'assets/mode1pmini.png');
-            this.load.image('mode2pteammini', 'assets/mode2pteammini.png');
-            this.load.image('mode2pversusmini', 'assets/mode2pversusmini.png');
-            this.load.image('mode1p', 'assets/mode1p.png');
-            this.load.image('mode2pteam', 'assets/mode2pteam.png');
-            this.load.image('mode2pversus', 'assets/mode2pversus.png');
-            this.load.image('fill', 'assets/fill.png');
-            this.load.image('selectie', 'assets/selectie.png');
-            // preload breakout
-            this.load.image('starfield', 'assets/starfield.jpg');
-            this.load.image('bobg', 'assets/bobg.png');
+
             this.load.image('scorebg', 'assets/scorebg.png');
             this.load.image('scoredudes', 'assets/scoredudes.png');
 
@@ -84,10 +62,22 @@
             this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
             this.load.image('pbbg2', 'assets/pbbg.png');
             this.load.image('pbbg3', 'assets/pbbg2.png');
+            this.load.image('lifeup', 'assets/lifeup.png');
+
+            // waste
+            this.load.image('duck1', 'assets/duck1.png');
+            this.load.image('duck2', 'assets/duck2.png');
+            this.load.image('duck3', 'assets/duck3.png');
+            // containers
+            this.load.image('cont1', 'assets/cont1.png');
+            this.load.image('cont2', 'assets/cont2.png');
+            this.load.image('cont3', 'assets/cont3.png');
+
+
             //scoring
             this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
             this.loadResources();
-            this.load.image('lifeup', 'assets/lifeup.png');
+
         },
 
         loadResources: function() {

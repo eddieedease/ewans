@@ -18,6 +18,10 @@
     var platplayer1;
     var platplayer2;
 
+    var waste1;
+    var waste2;
+    var waste3;
+
     var p1jump;
 
     var lifeactive = false;
@@ -121,10 +125,10 @@
             audiocoin = this.game.add.audio('coin');
 
             //  A simple background for our game
-            bg1 = this.game.add.sprite(0, -60, 'sky');
-            bg2 = this.game.add.sprite(0, -60, 'pbbg2');
+            bg1 = this.game.add.sprite(0, 0, 'sky');
+            bg2 = this.game.add.sprite(0, 0, 'pbbg2');
             bg2.visible = false;
-            bg3 = this.game.add.sprite(0, -60, 'pbbg3');
+            bg3 = this.game.add.sprite(0, 0, 'pbbg3');
             bg3.visible = false;
 
             //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -134,7 +138,7 @@
             platforms.enableBody = true;
 
             // Here we create the ground.
-            platform = platforms.create(0, this.game.world.height - 70, 'platformground');
+            platform = platforms.create(0, this.game.world.height - 20, 'platformground');
 
             platform.alpha = 0.1;
 
@@ -244,6 +248,27 @@
             this.createStars();
 
 
+            waste1 = this.game.add.sprite(200, 0, 'duck1');
+            waste1.scale.setTo(0.5, 0.5);
+            waste2 = this.game.add.sprite(400, 0, 'duck2');
+            waste2.scale.setTo(0.5, 0.5);
+            waste3 = this.game.add.sprite(800, 0, 'duck3');
+            waste3.scale.setTo(0.5, 0.5);
+
+
+            this.game.physics.arcade.enable(waste1);
+            waste1.body.gravity.y = 200;
+            waste1.body.bounce.y = 0.2;
+            this.game.physics.arcade.enable(waste2);
+            waste2.body.gravity.y = 200;
+            waste2.body.bounce.y = 0.2;
+            this.game.physics.arcade.enable(waste3);
+            waste3.body.gravity.y = 200;
+            waste3.body.bounce.y = 0.2;
+
+            //waste1.body.bounce.y = 0.7 + Math.random() * 0.2;
+
+
             //scoringtext = this.game.add.bitmapText(this.game.world.centerX, this.game.world.height - 30, 'scorefont', 'score voor volgende ronde: ' + levelscores[currentlevel], 30);
             //scoringtext.anchor.setTo(0.5, 0.5);
             //scoringtext.align = "center";
@@ -258,7 +283,6 @@
 
             this.createenemy1();
             this.createenemy2();
-
             //timerdisplay = this.game.add.bitmapText(this.game.world.centerX, 50, 'scorefont', 'Go!', 40);
             //timerdisplay.anchor.setTo(0.5, 0.5);
             //this.game.time.events.loop(Phaser.Timer.SECOND, this.timerLoop, this);
@@ -336,6 +360,10 @@
             //this.game.physics.arcade.collide(platplayer1, enemy1);
             this.game.physics.arcade.collide(enemy1, platforms);
             this.game.physics.arcade.collide(enemy2, platforms);
+
+            this.game.physics.arcade.collide(waste1, platforms);
+            this.game.physics.arcade.collide(waste2, platforms);
+            this.game.physics.arcade.collide(waste3, platforms);
 
             this.game.physics.arcade.collide(stars, platforms);
             //  Checks to see if the platplayer1 overlaps with any of the stars, if he does call the collectStar function
@@ -756,9 +784,8 @@
                 //this.game.state.start('score');
                 //}
             }
-
-
         },
+
 
 
         checkscore: function() {
@@ -865,7 +892,6 @@
                             p2over = false;
                             p1over = false;
                             this.game.state.start('score');
-
                         }
                     }
                     break;
