@@ -18,11 +18,15 @@
     var platplayer1;
     var platplayer2;
 
+    var carry1;
+    var carry2;
+
     var waste1;
     var waste2;
     var waste3;
 
     var p1jump;
+    var p1grab;
 
     var lifeactive = false;
 
@@ -31,6 +35,7 @@
     var p2right;
     var p2up;
     var p2down;
+    var p2grab;
 
     var scorep1 = 0;
     var scorep2 = 0;
@@ -78,6 +83,10 @@
     var starsalive = 15;
     var levens1 = 3;
     var levens2 = 3;
+
+    var cont1;
+    var cont2;
+    var cont3;
 
 
     var ledge1;
@@ -154,6 +163,13 @@
             currentlevel = 0;
             lifeactive = false;
 
+            cont1 = this.game.add.sprite(100, 450, 'cont1');
+            this.game.physics.arcade.enable(cont1);
+            cont2 = this.game.add.sprite(440, 450, 'cont2');
+            this.game.physics.arcade.enable(cont2);
+            cont3 = this.game.add.sprite(800, 450, 'cont3');
+            this.game.physics.arcade.enable(cont3);
+
             switch (randomlegde) {
                 case 0:
                     ledge1 = platforms.create(400, 400, 'platform');
@@ -192,6 +208,7 @@
 
             if (this.game.multiplay === true) {
                 // NOTE Player2
+                p2grab = this.input.keyboard.addKey(Phaser.Keyboard.E);
                 p2left = this.input.keyboard.addKey(Phaser.Keyboard.A);
                 p2right = this.input.keyboard.addKey(Phaser.Keyboard.D);
                 p2up = this.input.keyboard.addKey(Phaser.Keyboard.Q);
@@ -216,12 +233,8 @@
                 lifep23 = this.game.add.image(680, 30, 'p2life');
             }
 
-
-
-
-
-
             p1jump = this.input.keyboard.addKey(Phaser.Keyboard.Z);
+            p1grab = this.input.keyboard.addKey(Phaser.Keyboard.X);
 
             // p1
             // The platplayer1 and its settings
@@ -244,7 +257,6 @@
             platplayer1.animations.add('right', [9, 10, 11], 10, true);
             platplayer1.animations.add('jumpleft', [12, 13, 14], 10, true);
             platplayer1.animations.add('jumpright', [17, 16, 15], 10, true);
-
             this.createStars();
 
 
@@ -265,6 +277,10 @@
             this.game.physics.arcade.enable(waste3);
             waste3.body.gravity.y = 200;
             waste3.body.bounce.y = 0.2;
+
+
+
+
 
             //waste1.body.bounce.y = 0.7 + Math.random() * 0.2;
 
@@ -344,6 +360,46 @@
 
 
 
+            // NOTE trying to grab something
+            this.physics.arcade.overlap(platplayer1, waste1, function(_player, _waste) {
+                if (p1grab.isDown && carry1 !== true) {
+                    carry1 = true;
+                    console.log("GRABBBINGGGGG");
+                    waste1.x = platplayer1.x;
+                    waste1.y = platplayer1.y - 40;
+                } else {
+                    carry1 = false;
+                }
+            }, null, this);
+
+            this.physics.arcade.overlap(platplayer1, waste2, function(_player, _waste) {
+                if (p1grab.isDown && carry1 !== true) {
+                    carry1 = true;
+                    console.log("GRABBBINGGGGG");
+                    waste2.x = platplayer1.x;
+                    waste2.y = platplayer1.y - 40;
+                } else {
+                    carry1 = false;
+                }
+
+            }, null, this);
+
+            this.physics.arcade.overlap(platplayer1, waste3, function(_player, _waste) {
+                if (p1grab.isDown && carry1 !== true) {
+                    carry1 = true;
+                    console.log("GRABBBINGGGGG");
+                    waste3.x = platplayer1.x;
+                    waste3.y = platplayer1.y - 40;
+                } else {
+                    carry1 = false;
+                }
+            }, null, this);
+
+
+
+
+
+
             enemy1.animations.play('munch');
             enemy1.body.velocity.x = enemyspeed1;
             enemy1.outOfBoundsKill = true;
@@ -383,6 +439,41 @@
 
 
             if (this.game.multiplay === true) {
+
+                // NOTE trying to grab something
+                this.physics.arcade.overlap(platplayer2, waste1, function(_player, _waste) {
+                    if (p2grab.isDown && carry2 !== true) {
+                        carry2 = true;
+                        console.log("GRABBBINGGGGG");
+                        waste1.x = platplayer2.x;
+                        waste1.y = platplayer2.y - 40;
+                    } else {
+                        carry2 = false;
+                    }
+                }, null, this);
+
+                this.physics.arcade.overlap(platplayer2, waste2, function(_player, _waste) {
+                    if (p2grab.isDown && carry2 !== true) {
+                        carry2 = true;
+                        console.log("GRABBBINGGGGG");
+                        waste2.x = platplayer2.x;
+                        waste2.y = platplayer2.y - 40;
+                    } else {
+                        carry2 = false;
+                    }
+
+                }, null, this);
+
+                this.physics.arcade.overlap(platplayer2, waste3, function(_player, _waste) {
+                    if (p2grab.isDown && carry2 !== true) {
+                        carry2 = true;
+                        console.log("GRABBBINGGGGG");
+                        waste3.x = platplayer2.x;
+                        waste3.y = platplayer2.y - 40;
+                    } else {
+                        carry2 = false;
+                    }
+                }, null, this);
 
 
                 // TODO Player 2
