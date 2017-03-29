@@ -111,6 +111,8 @@
     var bg2;
     var bg3;
 
+    var wastecollected = 0;
+
 
 
     Platformer.prototype = {
@@ -400,6 +402,7 @@
 
 
 
+
             enemy1.animations.play('munch');
             enemy1.body.velocity.x = enemyspeed1;
             enemy1.outOfBoundsKill = true;
@@ -420,6 +423,17 @@
             this.game.physics.arcade.collide(waste1, platforms);
             this.game.physics.arcade.collide(waste2, platforms);
             this.game.physics.arcade.collide(waste3, platforms);
+
+            //this.game.physics.arcade.collide(cont1, waste1);
+            //this.game.physics.arcade.collide(cont2, waste2);
+            //this.game.physics.arcade.collide(cont3, waste3);collectWaste1
+            this.game.physics.arcade.overlap(cont1, waste1, this.collectWaste1, null, this);
+            this.game.physics.arcade.overlap(cont2, waste2, this.collectWaste1, null, this);
+            this.game.physics.arcade.overlap(cont3, waste3, this.collectWaste1, null, this);
+
+
+
+
 
             this.game.physics.arcade.collide(stars, platforms);
             //  Checks to see if the platplayer1 overlaps with any of the stars, if he does call the collectStar function
@@ -844,7 +858,6 @@
                 audiocoin.play();
                 // Removes the star from the screen
                 star.kill();
-
                 //  Add and update the score
                 scorep1 += 10;
                 scoreTextp1.text = 'Score P1:\n' + scorep1;
@@ -877,14 +890,54 @@
             }
         },
 
+        collectWaste1: function(container, _waste) {
+            {
+                _waste.kill();
+                console.log(_waste);
+                audiocoin.play();
+                // Removes the star from the screen
+
+                wastecollected++;
+                this.checkWasteCollected();
+                //  Add and update the score
+                //scorep2 += 10;
+                //scoreTextp2.text = 'Score P2:\n' + scorep2;
+                //scoretogether = scorep1 + scorep2;
+                //starsalive--;
+                //this.checkscore();
+                //if (score === 240) {
+                //this.game.state.start('score');
+                //}
+            }
+        },
+
 
 
         checkscore: function() {
             if (starsalive === 0) {
                 starsalive = 14;
                 this.createStars();
-                this.levelup();
+                //this.levelup();
             }
+
+        },
+        checkWasteCollected: function() {
+            if (wastecollected === 3) {
+                waste1.y = -100;
+                waste1.x = 500;
+                waste2.y = -200;
+                waste2.x = 70;
+                waste3.y = -150;
+                waste3.x = 300;
+                wastecollected = 0;
+                waste1.revive();
+                waste2.revive();
+                waste3.revive();
+                this.levelup();
+
+            }
+
+
 
         },
         hitenemy: function(enemy, player) {
@@ -1025,7 +1078,7 @@
 
         createStars: function() {
             starsalive = 14;
-            var randomy = this.game.rnd.integerInRange(-100, 400);
+            var randomy = this.game.rnd.integerInRange(-500, 400);
             //  Finally some stars to collect
             stars = this.game.add.group();
             //  We will enable physics for any star that is created in this group
@@ -1033,7 +1086,10 @@
             //  Here we'll create 12 of them evenly spaced apart
             for (var i = 0; i < 14; i++) {
                 //  Create a star inside of the 'stars' group
-                var star = stars.create(i * 70 + 30, randomy, 'star');
+                var star = stars.create(i * 70 + 30, randomy, 'coin');
+                var coinspin = star.animations.add('spin', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
+                star.animations.play('spin');
+                star.scale.setTo(0.5, 0.5);
                 //  Let gravity do its thing
                 star.body.gravity.y = 200;
                 //  This just gives each star a slightly random bounce value

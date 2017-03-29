@@ -78,18 +78,19 @@
               zz3[b] = Math.floor(Math.random() * 1700) - 100;
             }*/
 
-            text = this.game.add.bitmapText(this.game.width / 2, this.game.height / 5, 'scorefont', 'Recycle je telefoon\n en speel games', 50);
+            text = this.game.add.bitmapText(this.game.width / 2, this.game.height / 5, 'scorefont', 'Gooi het afval in de goede container', 40);
             text.align = "center";
 
 
+            // TODO: Video
             video = this.game.add.video('introfilm');
             this.game.time.events.add(Phaser.Timer.SECOND * 60, this.restartVid, this);
-
+            video.play();
 
             sprite = video.addToWorld(0, 0, 0, 0);
-            sprite.x = 115;
+            sprite.x = 170;
             sprite.y = 180;
-            video.play();
+
             text.anchor.set(0.5);
             cursors = this.game.input.keyboard.createCursorKeys();
 
