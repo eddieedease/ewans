@@ -56,7 +56,7 @@
     Screensaver.prototype = {
         create: function() {
             credit = localStorage.getItem('credits');
-            video = null;
+            // video = null;
             /*canvas = this.game.add.bitmapData(1000, 563);
             canvas.addToWorld();
 
@@ -83,13 +83,13 @@
 
 
             // TODO: Video
-            video = this.game.add.video('introfilm');
-            this.game.time.events.add(Phaser.Timer.SECOND * 60, this.restartVid, this);
-            video.play();
+            //video = this.game.add.video('introfilm');
+            //this.game.time.events.add(Phaser.Timer.SECOND * 60, this.restartVid, this);
+            //video.play();
 
-            sprite = video.addToWorld(0, 0, 0, 0);
-            sprite.x = 170;
-            sprite.y = 180;
+            //sprite = video.addToWorld(0, 0, 0, 0);
+            //sprite.x = 170;
+            //sprite.y = 180;
 
             text.anchor.set(0.5);
             cursors = this.game.input.keyboard.createCursorKeys();
@@ -126,10 +126,6 @@
 
 
 
-            valid = this.game.add.image(this.game.width - 100, 100, 'valid')
-            valid.anchor.set(0.5, 0.5);
-            valid.visible = false;
-
 
             creditadd = this.input.keyboard.addKey(Phaser.Keyboard.O);
             creditadd.onDown.add(this.creditadd, this);
@@ -153,12 +149,12 @@
 
             this.game.aantalphones = this.game.aantalphones + 1;
             localStorage.setItem('aantalphones', this.game.aantalphones);
-            valid.visible = true;
+          
             this.game.time.events.add(Phaser.Timer.SECOND * 3, this.creditgone, this);
         },
         creditgone: function() {
             this.game.time.events.remove(Phaser.Timer.SECOND * 3, this.creditgone, this);
-            valid.visible = false;
+           
             this.game.state.start('menu', true, false);
         },
 
@@ -262,7 +258,7 @@
             }
 
             // THIS WILL ENABLE MULTIPLAYER
-            video.stop();
+            //video.stop();
             this.game.multiplay = true;
             this.game.state.start('platformer', true, false);
         }

@@ -107,6 +107,9 @@
 
     var credit;
 
+    var train;
+    var traintween;
+
     var bg1;
     var bg2;
     var bg3;
@@ -149,7 +152,7 @@
             platforms.enableBody = true;
 
             // Here we create the ground.
-            platform = platforms.create(0, this.game.world.height - 20, 'platformground');
+            platform = platforms.create(0, this.game.world.height - 50, 'platformground');
 
             platform.alpha = 0.1;
 
@@ -165,11 +168,11 @@
             currentlevel = 0;
             lifeactive = false;
 
-            cont1 = this.game.add.sprite(100, 450, 'cont1');
+            cont1 = this.game.add.sprite(100, 412, 'cont1');
             this.game.physics.arcade.enable(cont1);
-            cont2 = this.game.add.sprite(440, 450, 'cont2');
+            cont2 = this.game.add.sprite(440, 412, 'cont2');
             this.game.physics.arcade.enable(cont2);
-            cont3 = this.game.add.sprite(800, 450, 'cont3');
+            cont3 = this.game.add.sprite(800, 412, 'cont3');
             this.game.physics.arcade.enable(cont3);
 
             switch (randomlegde) {
@@ -268,6 +271,15 @@
             waste2.scale.setTo(0.5, 0.5);
             waste3 = this.game.add.sprite(800, 0, 'duck3');
             waste3.scale.setTo(0.5, 0.5);
+
+
+            train = this.game.add.sprite(-1200, 390, 'train', 1);
+
+            traintween = this.game.add.tween(train);
+    
+            traintween.to({x:1500}, 2000,  Phaser.Easing.Linear.None);
+        //traintween.onComplete.add(firstTween, this);
+            traintween.start();
 
 
             this.game.physics.arcade.enable(waste1);
@@ -616,6 +628,13 @@
             }
         },
         levelup: function() {
+
+            train.x = -1200;
+            //traintween.to({x:1500}, 1000,  Phaser.Easing.Linear.None);
+             //traintween.onComplete.add(firstTween, this);
+            traintween.start();
+
+
             this.changeledges();
             if (round < 9) {
                 round = round + 1;

@@ -23,12 +23,8 @@
             this.load.audio('alarm', ['assets/audio/alarm.ogg']);
             this.load.bitmapFont('scorefont', 'assets/font/font.png', 'assets/font/font.fnt');
             this.load.image('levelup', 'assets/levelup.png');
-            this.load.image('tel2', 'assets/tel2.png');
-            this.load.image('tel3', 'assets/tel3.png');
-            this.load.image('star2', 'assets/star2.png');
 
             this.load.image('currentletter', 'assets/currentletter.png');
-            this.load.image('valid', 'assets/valid.png');
             this.load.image('diamond', 'assets/diamond.png');
             //preload menu
 
@@ -37,7 +33,7 @@
 
             this.load.image('backbutton', 'assets/backbutton.png');
             //Films
-            this.game.load.video('introfilm', 'assets/films/test.mp4');
+            //this.game.load.video('introfilm', 'assets/films/test.mp4');
 
             this.load.image('knoppenscore', 'assets/knoppenscore.png');
             this.load.image('knoppenscorewhite', 'assets/knoppenscorewhite.png');
@@ -47,19 +43,20 @@
 
             this.load.image('ground', 'assets/ground.png');
             this.load.image('gameover', 'assets/gameover.png');
-            this.load.spritesheet('explosion', 'assets/explosion.png', 128, 128);
             this.load.spritesheet('enemy', 'assets/enemy.png', 50, 96);
             this.load.spritesheet('coin', 'assets/coin.png', 50, 50);
-            this.load.image('p1p2', 'assets/p1p2.png');
 
             //platformer
             this.load.image('sky', 'assets/sky.png');
             this.load.image('platform', 'assets/platform.png');
             this.load.image('platformground', 'assets/platformground.png');
-            this.load.image('star', 'assets/star.png');
+
+            this.load.image('train', 'assets/train.png');
+
+
             this.load.image('p1life', 'assets/p1life.png');
             this.load.image('p2life', 'assets/p2life.png');
-            this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+
             this.load.image('pbbg2', 'assets/pbbg.png');
             this.load.image('pbbg3', 'assets/pbbg2.png');
             this.load.image('lifeup', 'assets/lifeup.png');
