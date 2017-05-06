@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     function Screensaver() {
@@ -32,6 +32,21 @@
     var creditadd;
 
     var credit;
+
+    var tweenrecyclespeel;
+    var recyclespeel;
+    var letsplay;
+    var kiesspelers;
+    var selectie;
+
+    var readytoplay = false;
+
+    var letsplaytween;
+    var kiesspelerstween;
+
+    var animationstarted = false;
+
+    var is1player = true;
     /*
         var distance = 700;
         var speed = 2;
@@ -54,7 +69,7 @@
     var text;
 
     Screensaver.prototype = {
-        create: function() {
+        create: function () {
             credit = localStorage.getItem('credits');
             // video = null;
             /*canvas = this.game.add.bitmapData(1000, 563);
@@ -78,9 +93,37 @@
               zz3[b] = Math.floor(Math.random() * 1700) - 100;
             }*/
 
-            text = this.game.add.bitmapText(this.game.width / 2, this.game.height / 5, 'scorefont', 'Gooi het afval in de goede container', 40);
-            text.align = "center";
+            this.game.stage.backgroundColor = "#fff";
+            animationstarted = false;
+            is1player = true;
+            recyclespeel = this.game.add.sprite(70, 200, 'recyclespeel');
+            recyclespeel.alpha = 0;
+            //  Here we create a tween on the sprite created above
+            tweenrecyclespeel = this.game.add.tween(recyclespeel).to({
+                alpha: 1
+            }, 2000, "Linear", true, 0, -1);
+            //  The object defines the properties to tween.
+            //  In this case it will move to x 800
+            //  The 5000 is the duration in ms - 5000ms = 5 seconds
+            tweenrecyclespeel.yoyo(true, 3000);
+            //text = this.game.add.bitmapText(this.game.width / 2, this.game.height / 5, 'scorefont', 'Gooi het afval in de goede container', 40);
+            //text.align = "center";
+            // text.anchor.set(0.5);
 
+
+            letsplay = this.game.add.sprite(200, 180, 'letsplay');
+            letsplay.alpha = 0;
+
+            kiesspelers = this.game.add.sprite(90, 120, 'kiesspelers');
+            kiesspelers.alpha = 0;
+
+            selectie = this.game.add.sprite(80, 140, 'selectie');
+            selectie.alpha = 0;
+
+
+
+            readytoplay = false;
+            this.game.multiplay = false;
 
             // TODO: Video
             //video = this.game.add.video('introfilm');
@@ -91,54 +134,54 @@
             //sprite.x = 170;
             //sprite.y = 180;
 
-            text.anchor.set(0.5);
+
             cursors = this.game.input.keyboard.createCursorKeys();
 
 
-            keyq = this.input.keyboard.addKey(Phaser.Keyboard.Q);
-            keyw = this.input.keyboard.addKey(Phaser.Keyboard.W);
-            keye = this.input.keyboard.addKey(Phaser.Keyboard.E);
-            keya = this.input.keyboard.addKey(Phaser.Keyboard.A);
-            keys = this.input.keyboard.addKey(Phaser.Keyboard.S);
-            keyd = this.input.keyboard.addKey(Phaser.Keyboard.D);
+            // keyq = this.input.keyboard.addKey(Phaser.Keyboard.Q);
+            // keyw = this.input.keyboard.addKey(Phaser.Keyboard.W);
+            // keye = this.input.keyboard.addKey(Phaser.Keyboard.E);
+            // keya = this.input.keyboard.addKey(Phaser.Keyboard.A);
+            // keys = this.input.keyboard.addKey(Phaser.Keyboard.S);
+            // keyd = this.input.keyboard.addKey(Phaser.Keyboard.D);
             keyz = this.input.keyboard.addKey(Phaser.Keyboard.Z);
-            keyx = this.input.keyboard.addKey(Phaser.Keyboard.X);
+            // keyx = this.input.keyboard.addKey(Phaser.Keyboard.X);
             keyi = this.input.keyboard.addKey(Phaser.Keyboard.I);
-            keyo = this.input.keyboard.addKey(Phaser.Keyboard.O);
-            keyp = this.input.keyboard.addKey(Phaser.Keyboard.P);
+            // keyo = this.input.keyboard.addKey(Phaser.Keyboard.O);
+            // keyp = this.input.keyboard.addKey(Phaser.Keyboard.P);
 
 
 
 
 
-            keyq.onDown.add(this.onDown, this);
-            keyw.onDown.add(this.onDown, this);
-            keye.onDown.add(this.onDown, this);
-            keya.onDown.add(this.onDown, this);
-            keys.onDown.add(this.onDown, this);
-            keyd.onDown.add(this.onDown, this);
+            // keyq.onDown.add(this.onDown, this);
+            // keyw.onDown.add(this.onDown, this);
+            // keye.onDown.add(this.onDown, this);
+            // keya.onDown.add(this.onDown, this);
+            // keys.onDown.add(this.onDown, this);
+            // keyd.onDown.add(this.onDown, this);
             keyz.onDown.add(this.onDown, this);
-            keyx.onDown.add(this.onDown, this);
+            // keyx.onDown.add(this.onDown, this);
             keyi.onDown.add(this.onDown, this);
-            keyo.onDown.add(this.onDown, this);
-            keyp.onDown.add(this.onDown, this);
+            // keyo.onDown.add(this.onDown, this);
+            // keyp.onDown.add(this.onDown, this);
             //cursors.onDown.add(this.onDown, this);
 
 
 
 
-            creditadd = this.input.keyboard.addKey(Phaser.Keyboard.O);
-            creditadd.onDown.add(this.creditadd, this);
+            // creditadd = this.input.keyboard.addKey(Phaser.Keyboard.O);
+            // creditadd.onDown.add(this.creditadd, this);
 
 
 
 
         },
-        restartVid: function() {
+        restartVid: function () {
             video.play();
         },
 
-        creditadd: function() {
+        creditadd: function () {
 
 
 
@@ -149,33 +192,30 @@
 
             this.game.aantalphones = this.game.aantalphones + 1;
             localStorage.setItem('aantalphones', this.game.aantalphones);
-          
+
             this.game.time.events.add(Phaser.Timer.SECOND * 3, this.creditgone, this);
         },
-        creditgone: function() {
+        creditgone: function () {
             this.game.time.events.remove(Phaser.Timer.SECOND * 3, this.creditgone, this);
-           
+
             this.game.state.start('menu', true, false);
         },
 
-        update: function() {
+        update: function () {
 
             if (cursors.left.isDown) {
                 //  Move to the left
                 this.game.state.start('menu', true, false);
+                selectie.x = 80;
+                this.game.multiplay = false;
             }
             if (cursors.right.isDown) {
                 //  Move to the left
                 this.game.state.start('menu', true, false);
+                selectie.x = 550;
+                this.game.multiplay = true;
             }
-            if (cursors.up.isDown) {
-                //  Move to the left
-                this.game.state.start('menu', true, false);
-            }
-            if (cursors.down.isDown) {
-                //  Move to the left
-                this.game.state.start('menu', true, false);
-            }
+
             /*canvas.clear();
 
       for (var i = 0; i < max; i++) {
@@ -226,41 +266,46 @@
 */
 
         },
-        onDown: function(key) {
+        onDown: function (key) {
             console.log(key.keyCode);
-            if (key.keyCode === 79) {
-                return;
-            }
+
             if (key.keyCode === 73) {
-                keyq.enabled = false;
-                keyw.enabled = false;
-                keye.enabled = false;
-                keya.enabled = false;
-                keys.enabled = false;
-                keyd.enabled = false;
-                keyz.enabled = false;
-                keyx.enabled = false;
-                keyi.enabled = false;
-                //keyup.enabled = false;
-                return;
-            } else if (key.keyCode === 80) {
-                keyq.enabled = true;
-                keyw.enabled = true;
-                keye.enabled = true;
-                keya.enabled = true;
-                keys.enabled = true;
-                keyd.enabled = true;
-                keyz.enabled = true;
-                keyx.enabled = true;
-                keyi.enabled = true;
-                //keyup.enabled = true;
-                return;
+                if (animationstarted === false) {
+                    animationstarted = true;
+                    // THIS WILL ENABLE MULTIPLAYER
+                    //video.stop();
+
+                    this.game.stage.backgroundColor = "#fff";
+                    // NOTE starting the game
+                    letsplay.alpha = 1;
+                    letsplaytween = this.game.add.tween(letsplay).from({
+                        y: -200
+                    }, 1500, Phaser.Easing.Bounce.Out, true);
+                    letsplaytween.onComplete.add(this.letplaysdone, this);
+                }
             }
 
-            // THIS WILL ENABLE MULTIPLAYER
-            //video.stop();
-            this.game.multiplay = true;
-            this.game.state.start('platformer', true, false);
+            if (key.keyCode === 90 && readytoplay === true) {
+                 this.game.state.start('platformer', true, false);
+            }
+
+
+           
+        },
+        letplaysdone: function () {
+            console.log("comes here");
+            kiesspelers.alpha = 1;
+            kiesspelerstween = this.game.add.tween(kiesspelers).to({
+                y: 80
+            }, 1000, Phaser.Easing.Bounce.Out, true);
+            kiesspelerstween.onComplete.add(this.kiesspelersdone, this);
+        },
+        kiesspelersdone: function () {
+            console.log("comes here");
+            selectie.alpha = 1;
+
+            readytoplay = true;
+
         }
 
 

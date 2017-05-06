@@ -112,6 +112,8 @@
 
     var bg1;
     var bg2;
+
+    
     var bg3;
 
     var wastecollected = 0;
@@ -218,7 +220,7 @@
                 p2right = this.input.keyboard.addKey(Phaser.Keyboard.D);
                 p2up = this.input.keyboard.addKey(Phaser.Keyboard.Q);
                 p2down = this.input.keyboard.addKey(Phaser.Keyboard.S);
-                platplayer2 = this.game.add.sprite(600, this.game.world.height - 250, 'crp2');
+                platplayer2 = this.game.add.sprite(900, this.game.world.height - 250, 'crp2');
                 platplayer2.anchor.setTo(0.5, 0.5);
                 platplayer2.scale.setTo(0.6, 0.6);
                 this.game.physics.arcade.enable(platplayer2);
@@ -243,7 +245,7 @@
 
             // p1
             // The platplayer1 and its settings
-            platplayer1 = this.game.add.sprite(400, this.game.world.height - 250, 'crp1');
+            platplayer1 = this.game.add.sprite(100, this.game.world.height - 250, 'crp1');
             platplayer1.anchor.setTo(0.5, 0.5);
             platplayer1.scale.setTo(0.6, 0.6);
 

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     function Preloader() {
@@ -7,16 +7,26 @@
     }
 
     Preloader.prototype = {
-        preload: function() {
+        preload: function () {
             // preload preloader
             this.asset = this.add.sprite(this.game.width * 0.5 - 110, this.game.height * 0.5 - 10, 'preloader');
             this.load.setPreloadSprite(this.asset);
             // load audio files first..
+
+            // new assets
+            this.load.image('gameoverr', 'assets/gameoverr.png');
+            this.load.image('pakop', 'assets/pakop.png');
+            this.load.image('recyclehier', 'assets/recyclehier.png');
+            this.load.image('uitleg', 'assets/uitleg.png');
+            this.load.image('kiesspelers', 'assets/kiesspelers.png');
+            this.load.image('letsplay', 'assets/letsplay.png');
+            this.load.image('recyclespeel', 'assets/recyclespeel.png');
+            this.load.image('selectie', 'assets/selectie.png');
+
+
             this.load.audio('menu', ['assets/audio/menu.ogg']);
             this.load.audio('platformer', ['assets/audio/platformer.ogg']);
-
             this.load.audio('birdhit', ['assets/audio/birdhit.ogg']);
-
             this.load.audio('coin', ['assets/audio/coin.ogg']);
             this.load.audio('hitby', ['assets/audio/hitby.ogg']);
             this.load.audio('scoresound', ['assets/audio/scoresound.ogg']);
@@ -77,21 +87,21 @@
 
         },
 
-        loadResources: function() {
+        loadResources: function () {
             // load your assets here
         },
 
-        create: function() {
+        create: function () {
 
         },
 
-        update: function() {
+        update: function () {
             // if (!!this.ready) {
             //this.game.state.start('screensaver');
             // }
         },
 
-        onLoadComplete: function() {
+        onLoadComplete: function () {
             // this.ready = true;
             this.game.state.start('screensaver');
         }
