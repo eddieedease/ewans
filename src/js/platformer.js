@@ -204,46 +204,46 @@
             currentlevel = 0;
             lifeactive = false;
 
-            cont1 = this.game.add.sprite(100, 412, 'cont1');
+            cont1 = this.game.add.sprite(100, 408, 'cont1');
             this.game.physics.arcade.enable(cont1);
-            cont2 = this.game.add.sprite(440, 412, 'cont2');
+            cont2 = this.game.add.sprite(440, 408, 'cont2');
             this.game.physics.arcade.enable(cont2);
-            cont3 = this.game.add.sprite(800, 412, 'cont3');
+            cont3 = this.game.add.sprite(800, 408, 'cont3');
             this.game.physics.arcade.enable(cont3);
 
             this.createenemy1();
             this.createenemy2();
             enemycreated = false;
-
+            console.log(randomlegde);
             switch (randomlegde) {
                 case 0:
                     ledge1 = platforms.create(400, 400, 'platform');
                     ledge1.body.immovable = true;
                     ledge2 = platforms.create(500, 125, 'platform');
                     ledge2.body.immovable = true;
-                    ledge3 = platforms.create(100, 230, 'platform');
+                    ledge3 = platforms.create(100, 200, 'platform');
                     ledge3.body.immovable = true;
-                    ledge4 = platforms.create(600, 300, 'platform');
+                    ledge4 = platforms.create(600, 260, 'platform');
                     ledge4.body.immovable = true;
                     break;
                 case 1:
-                    ledge1 = platforms.create(100, 100, 'platform');
+                    ledge1 = platforms.create(380, 110, 'platform');
                     ledge1.body.immovable = true;
-                    ledge2 = platforms.create(400, 400, 'platform');
+                    ledge2 = platforms.create(300, 370, 'platform');
                     ledge2.body.immovable = true;
-                    ledge3 = platforms.create(300, 230, 'platform');
+                    ledge3 = platforms.create(20, 230, 'platform');
                     ledge3.body.immovable = true;
-                    ledge4 = platforms.create(700, 300, 'platform');
+                    ledge4 = platforms.create(700, 220, 'platform');
                     ledge4.body.immovable = true;
                     break;
                 case 2:
-                    ledge1 = platforms.create(100, 270, 'platform');
+                    ledge1 = platforms.create(100, 250, 'platform');
                     ledge1.body.immovable = true;
-                    ledge2 = platforms.create(350, 170, 'platform');
+                    ledge2 = platforms.create(350, 140, 'platform');
                     ledge2.body.immovable = true;
-                    ledge3 = platforms.create(600, 270, 'platform');
+                    ledge3 = platforms.create(700, 250, 'platform');
                     ledge3.body.immovable = true;
-                    ledge4 = platforms.create(350, 370, 'platform');
+                    ledge4 = platforms.create(250, 370, 'platform');
                     ledge4.body.immovable = true;
                     break;
             }
@@ -262,9 +262,9 @@
                 platplayer2.anchor.setTo(0.5, 0.5);
                 platplayer2.scale.setTo(0.6, 0.6);
                 this.game.physics.arcade.enable(platplayer2);
-                platplayer2.body.setSize(100, 100, 0, 0);
+                platplayer2.body.setSize(80, 135, 40, 0);
                 platplayer2.body.bounce.y = 0.1;
-                platplayer2.body.gravity.y = 500;
+                platplayer2.body.gravity.y = 700;
                 platplayer2.body.collideWorldBounds = true;
                 //  Our two animations, walking left and right.
                 platplayer2.animations.add('left', [6, 7, 8], 10, true);
@@ -290,12 +290,12 @@
 
 
             this.game.physics.arcade.enable(platplayer1);
-            platplayer1.body.setSize(100, 100, 0, 0);
+            platplayer1.body.setSize(80, 135, 40, 0);
 
             //  platplayer1 physics properties. Give the little guy a slight bounce.
             platplayer1.body.bounce.y = 0.1;
 
-            platplayer1.body.gravity.y = 500;
+            platplayer1.body.gravity.y = 700;
             platplayer1.body.collideWorldBounds = true;
             //  Our two animations, walking left and right.
             platplayer1.animations.add('left', [6, 7, 8], 10, true);
@@ -305,16 +305,18 @@
             //this.createStars();
 
 
-            waste1 = this.game.add.sprite(200, 0, 'duck1');
-            waste1.scale.setTo(0.5, 0.5);
-            waste2 = this.game.add.sprite(400, 0, 'duck2');
-            waste2.scale.setTo(0.5, 0.5);
-            waste3 = this.game.add.sprite(800, 0, 'duck3');
-            waste3.scale.setTo(0.5, 0.5);
+            
 
-            ssplastic = this.game.add.sprite(200, 0, 'ssplastic');
-            sspapier = this.game.add.sprite(400, 0, 'sspapier');
-            sseten = this.game.add.sprite(800, 0, 'sseten');
+            waste1 = this.game.add.sprite(200, 0, 'ssplastic');
+            waste2 = this.game.add.sprite(400, 0, 'sspapier');
+            waste3 = this.game.add.sprite(800, 0, 'sseten');
+
+            //waste1 = this.game.add.sprite(200, 0, 'duck1');
+            waste1.scale.setTo(0.7, 0.7);
+            //waste2 = this.game.add.sprite(400, 0, 'duck2');
+            waste2.scale.setTo(0.7, 0.7);
+           // waste3 = this.game.add.sprite(800, 0, 'duck3');
+            waste3.scale.setTo(0.7, 0.7);
 
             stoplicht1 = this.game.add.sprite(200, 550, 'stoplicht');
             stoplicht2 = this.game.add.sprite(400, 550, 'stoplicht');
@@ -441,6 +443,7 @@
                     console.log("check")
                     console.log("GRABBBINGGGGG");
                     waste1vast = "p1";
+                    waste1.body.gravity.y = 200;
                     waste1.x = platplayer1.x;
                     waste1.y = platplayer1.y - 40;
                 } else {
@@ -796,9 +799,9 @@
                     ledge2.x = 500;
                     ledge2.y = 125;
                     ledge3.x = 100;
-                    ledge3.y = 230;
+                    ledge3.y = 200;
                     ledge4.x = 600;
-                    ledge4.y = 300;
+                    ledge4.y = 260;
                     /*ledge1 = platforms.create(400, 400, 'platform');
                     ledge1.body.immovable = true;
                     ledge2 = platforms.create(500, 125, 'platform');
@@ -809,14 +812,14 @@
                     ledge4.body.immovable = true;*/
                     break;
                 case 1:
-                    ledge1.x = 100;
-                    ledge1.y = 100;
-                    ledge2.x = 400;
-                    ledge2.y = 400;
-                    ledge3.x = 300;
+                    ledge1.x = 380;
+                    ledge1.y = 110;
+                    ledge2.x = 300;
+                    ledge2.y =370;
+                    ledge3.x = 20;
                     ledge3.y = 230;
                     ledge4.x = 700;
-                    ledge4.y = 300;
+                    ledge4.y = 190;
                     /*ledge1 = platforms.create(100, 100, 'platform');
                     ledge1.body.immovable = true;
                     ledge2 = platfozrms.create(400, 400, 'platform');
@@ -828,12 +831,12 @@
                     break;
                 case 2:
                     ledge1.x = 100;
-                    ledge1.y = 270;
+                    ledge1.y = 250;
                     ledge2.x = 350;
-                    ledge2.y = 170;
-                    ledge3.x = 600;
-                    ledge3.y = 270;
-                    ledge4.x = 350;
+                    ledge2.y = 140;
+                    ledge3.x = 700;
+                    ledge3.y = 250;
+                    ledge4.x = 250;
                     ledge4.y = 370;
                     /*ledge1 = platforms.create(100, 270, 'platform');
                     ledge1.body.immovable = true;
@@ -979,7 +982,7 @@
         collectWaste1: function (container, _waste) {
             console.log(_waste.key);
             switch (_waste.key) {
-                case "duck1":
+                case "ssplastic":
                     if (waste1vast === "p1") {
                         scorep1 += 50;
                         scoreTextp1.text = 'Score P1:\n' + scorep1;
@@ -991,8 +994,10 @@
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
                     stoplicht1.frame = aantalplastic;
+                    waste1.kill();
+                    wastecollected++;
                     break;
-                case "duck2":
+                case "sspapier":
                     if (waste2vast === "p1") {
                         scorep1 += 50;
                         aantalpapier++;
@@ -1002,10 +1007,11 @@
                         aantalpapier++;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
+                    waste2.kill();
+                    wastecollected++;
                     stoplicht2.frame = aantalpapier;
-                    console.log("pakt2 aantalpapier = "+  aantalpapier);
                     break;
-                case "duck3":
+                case "sseten":
                     if (waste3vast === "p1") {
                         scorep1 += 50;
                         aantaleten++;
@@ -1015,17 +1021,17 @@
                         aantaleten++;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
+                    waste3.kill();
+                    wastecollected++;
                     stoplicht3.frame = aantaleten;
                     break;
 
             }
 
-            _waste.kill();
-            console.log(_waste);
             audiocoin.play();
             // Removes the star from the screen
 
-            wastecollected++;
+            
             this.checkWasteCollected();
             //  Add and update the score
             //scorep2 += 10;
@@ -1050,17 +1056,20 @@
 
         },
         checkWasteCollected: function () {
+            console.log("wastecolledted = " + wastecollected);
             if (wastecollected === 3) {
+                wastecollected = 0;
+                
                 waste1.y = -100;
                 waste1.x = 500;
                 waste2.y = -200;
                 waste2.x = 70;
                 waste3.y = -150;
                 waste3.x = 300;
-                wastecollected = 0;
                 waste1.revive();
                 waste2.revive();
                 waste3.revive();
+                wastecollected = 0;
                 this.levelup();
 
             }
@@ -1231,13 +1240,13 @@
             var randomTimer = this.game.rnd.integerInRange(3000, 7000);
 
             if (enemy1 === undefined) {
-                enemy1 = this.game.add.sprite(-20, randomy, 'enemy');
+                enemy1 = this.game.add.sprite(-30, randomy, 'enemy');
                 enemy1anim = enemy1.animations.add('munch', [0, 1], 10, true);
                 enemy1.kill();
                 enemy1.revive();
             } else {
                 enemy1.kill();
-                enemy1 = this.game.add.sprite(-20, randomy, 'enemy');
+                enemy1 = this.game.add.sprite(-30, randomy, 'enemy');
                 enemy1anim = enemy1.animations.add('munch', [0, 1], 10, true);
                 enemy1.kill();
                 enemy1.revive();
@@ -1290,7 +1299,7 @@
 
 
         render: function () {
-
+            // this.game.debug.body(platplayer1);
             //this.game.debug.body(platplayer1);
 
         }

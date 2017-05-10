@@ -29,13 +29,13 @@
             this.load.spritesheet('sseten', 'assets/sseten.png', 70, 70);
 
 
-            this.load.audio('menu', ['assets/audio/menu.ogg']);
+            //this.load.audio('menu', ['assets/audio/menu.ogg']);
             this.load.audio('platformer', ['assets/audio/platformer.ogg']);
             this.load.audio('birdhit', ['assets/audio/birdhit.ogg']);
             this.load.audio('coin', ['assets/audio/coin.ogg']);
             this.load.audio('hitby', ['assets/audio/hitby.ogg']);
             this.load.audio('scoresound', ['assets/audio/scoresound.ogg']);
-            this.load.audio('alarm', ['assets/audio/alarm.ogg']);
+            //this.load.audio('alarm', ['assets/audio/alarm.ogg']);
             this.load.bitmapFont('scorefont', 'assets/font/font.png', 'assets/font/font.fnt');
             this.load.image('levelup', 'assets/levelup.png');
 
