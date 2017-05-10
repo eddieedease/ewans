@@ -149,7 +149,7 @@
 
             scoresArray = this.game.highgame4[0];
             nameArray = this.game.highgame4[1];
-            gamename = this.game.add.bitmapText(this.game.width / 2, this.game.height / 10, 'scorefont', "Prullenbak Bullebak", 40);
+            //gamename = this.game.add.bitmapText(this.game.width / 2, this.game.height / 10, 'scorefont', "Prullenbak Bullebak", 40);
 
 
             // checking score player 1
@@ -188,8 +188,8 @@
                 }
             };
 
-            headertext = this.game.add.bitmapText(this.game.width / 2, this.game.height / 4 + 20, 'scorefont', 'goed gedaan! vul je naam in', 40);
-            gamename.anchor.setTo(0.5, 0.5);
+            headertext = this.game.add.bitmapText(this.game.width / 2, this.game.height / 5 + 20, 'scorefont', 'goed gedaan! vul je naam in', 40);
+           // gamename.anchor.setTo(0.5, 0.5);
             headertext.anchor.setTo(0.5, 0.5);
 
             //NOTE settings up player inputs (iffy)

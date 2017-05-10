@@ -93,7 +93,7 @@
               zz3[b] = Math.floor(Math.random() * 1700) - 100;
             }*/
 
-            this.game.stage.backgroundColor = "#fff";
+            this.game.stage.backgroundColor = "#000";
             animationstarted = false;
             is1player = true;
             recyclespeel = this.game.add.sprite(70, 200, 'recyclespeel');

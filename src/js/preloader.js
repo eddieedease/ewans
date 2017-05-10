@@ -23,6 +23,11 @@
             this.load.image('recyclespeel', 'assets/recyclespeel.png');
             this.load.image('selectie', 'assets/selectie.png');
 
+            this.load.spritesheet('stoplicht', 'assets/stoplicht.png', 140, 56);
+            this.load.spritesheet('ssplastic', 'assets/ssplastic.png', 70, 70);
+            this.load.spritesheet('sspapier', 'assets/sspapier.png', 70, 70);
+            this.load.spritesheet('sseten', 'assets/sseten.png', 70, 70);
+
 
             this.load.audio('menu', ['assets/audio/menu.ogg']);
             this.load.audio('platformer', ['assets/audio/platformer.ogg']);
