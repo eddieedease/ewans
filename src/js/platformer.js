@@ -146,6 +146,14 @@
 
     var tutorial = true;
 
+    var plastictween;
+    var papiertween;
+    var etentween;
+
+    var stopbord1;
+    var stopbord2;
+    var stopbord3;
+
     Platformer.prototype = {
         create: function () {
 
@@ -221,6 +229,10 @@
             recyclehier.visible = false;
             this.createenemy1();
             this.createenemy2();
+
+
+
+
             enemycreated = false;
             console.log(randomlegde);
             switch (randomlegde) {
@@ -339,6 +351,9 @@
             stoplicht2.frame = 0;
             stoplicht3.frame = 0;
 
+            stopbord1 = this.game.add.sprite(97, 400, 'stopbord');
+            stopbord2 = this.game.add.sprite(441, 400, 'stopbord');
+            stopbord3 = this.game.add.sprite(796, 400, 'stopbord');
 
 
 
@@ -402,9 +417,9 @@
             creditadd = this.input.keyboard.addKey(Phaser.Keyboard.O);
             creditadd.onDown.add(this.creditadd, this);
 
-            fleece = this.game.add.image(80, 330, 'fleece');
-             kranten = this.game.add.image(400, 330, 'kranten');
-             kranten = this.game.add.image(780, 330, 'compost');
+            fleece = this.game.add.image(80, 600, 'fleece');
+            kranten = this.game.add.image(400, 600, 'kranten');
+            compost = this.game.add.image(780, 600, 'compost');
 
 
 
@@ -518,7 +533,19 @@
             this.game.physics.arcade.overlap(cont2, waste2, this.collectWaste1, null, this);
             this.game.physics.arcade.overlap(cont3, waste3, this.collectWaste1, null, this);
 
+            // error signs
+            stopbord1.visible = false;
+            stopbord2.visible = false;
+            stopbord3.visible = false;
 
+            this.game.physics.arcade.overlap(cont1, waste2, this.error1, null, this);
+            this.game.physics.arcade.overlap(cont1, waste3, this.error1, null, this);
+
+            this.game.physics.arcade.overlap(cont2, waste1, this.error2, null, this);
+            this.game.physics.arcade.overlap(cont2, waste3, this.error2, null, this);
+
+            this.game.physics.arcade.overlap(cont3, waste1, this.error3, null, this);
+            this.game.physics.arcade.overlap(cont3, waste2, this.error3, null, this);
 
 
 
@@ -702,6 +729,21 @@
 
             }
         },
+        error1: function () {
+                stopbord1.visible = true;
+            }
+
+            ,
+        error2: function () {
+                stopbord2.visible = true
+            }
+
+            ,
+        error3: function () {
+                stopbord3.visible = true
+            }
+
+            ,
         levelup: function () {
 
             train.x = -1200;
@@ -981,6 +1023,54 @@
                 //}
             }
         },
+        endTweenFleece: function () {
+            fleece.y = 600;
+            switch (waste1vast) {
+                case "p1":
+                    scorep1 += 70;
+                    scoreTextp1.text = 'Score P1:\n' + scorep1;
+                    break;
+                case "p2":
+                    scorep2 += 70;
+                    scoreTextp2.text = 'Score P2:\n' + scorep2;
+                    break;
+
+            };
+            aantalplastic = 0;
+            stoplicht1.frame = 0;
+        },
+        endTweenKranten: function () {
+            kranten.y = 600;
+            switch (waste2vast) {
+                case "p1":
+                    scorep1 += 70;
+                    scoreTextp1.text = 'Score P1:\n' + scorep1;
+                    break;
+                case "p2":
+                    scorep2 += 70;
+                    scoreTextp2.text = 'Score P2:\n' + scorep2;
+                    break;
+
+            };
+            aantalpapier = 0;
+            stoplicht2.frame = 0;
+        },
+        endTweenCompost: function () {
+            compost.y = 600;
+            switch (waste3vast) {
+                case "p1":
+                    scorep1 += 70;
+                    scoreTextp1.text = 'Score P1:\n' + scorep1;
+                    break;
+                case "p2":
+                    scorep2 += 70;
+                    scoreTextp2.text = 'Score P2:\n' + scorep2;
+                    break;
+            }
+            aantaleten = 0;
+            stoplicht3.frame = 0;
+
+        },
 
         collectWaste1: function (container, _waste) {
             console.log(_waste.key);
@@ -998,14 +1088,17 @@
                     }
                     stoplicht1.frame = aantalplastic;
 
+                    if (aantalplastic === 3) {
+                        plastictween = this.game.add.tween(fleece).to({
+                            y: 300
+                        }, 3000, Phaser.Easing.Bounce.Out, true);
+                        plastictween.onComplete.add(this.endTweenFleece, this);
+                    }
+
                     waste1.kill();
                     wastecollected++;
                     break;
                 case "sspapier":
-
-
-
-
                     if (waste2vast === "p1") {
                         scorep1 += 50;
                         aantalpapier++;
@@ -1015,8 +1108,9 @@
                         aantalpapier++;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
-
                     waste2.kill();
+
+                    // tutorial
                     if (tutorial === true) {
                         wastecollected = 3;
                         tutorial = false;
@@ -1025,6 +1119,12 @@
                     }
 
                     stoplicht2.frame = aantalpapier;
+                    if (aantalpapier === 3) {
+                        papiertween = this.game.add.tween(kranten).to({
+                            y: 300
+                        }, 3000, Phaser.Easing.Bounce.Out, true);
+                        papiertween.onComplete.add(this.endTweenKranten, this);
+                    }
                     break;
                 case "sseten":
                     if (waste3vast === "p1") {
@@ -1039,6 +1139,12 @@
                     waste3.kill();
                     wastecollected++;
                     stoplicht3.frame = aantaleten;
+                    if (aantaleten === 3) {
+                        etentween = this.game.add.tween(compost).to({
+                            y: 300
+                        }, 3000, Phaser.Easing.Bounce.Out, true);
+                        etentween.onComplete.add(this.endTweenCompost, this);
+                    }
                     break;
 
             }
@@ -1059,6 +1165,7 @@
         checkWasteCollected: function () {
 
             console.log("wastecolledted = " + wastecollected);
+
             if (wastecollected === 3) {
 
                 var randomm = this.game.rnd.integerInRange(1, 5);

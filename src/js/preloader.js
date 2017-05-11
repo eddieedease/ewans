@@ -22,6 +22,7 @@
             this.load.image('letsplay', 'assets/letsplay.png');
             this.load.image('recyclespeel', 'assets/recyclespeel.png');
             this.load.image('selectie', 'assets/selectie.png');
+            this.load.image('stopbord', 'assets/stopbord.png');
 
             this.load.spritesheet('stoplicht', 'assets/stoplicht.png', 140, 56);
             this.load.spritesheet('ssplastic', 'assets/ssplastic.png', 70, 70);
