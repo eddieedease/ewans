@@ -120,6 +120,7 @@
     var waste3vast = "";
 
 
+
     var wastecollected = 0;
 
     var ssplastic;
@@ -135,14 +136,11 @@
     var stoplicht2
     var stoplicht3;
 
-    var pakop;
-    var recyclehier;
-    var uitleg;
-    var gameover;
-
     var aantalplastic;
     var aantalpapier;
     var aantaleten;
+
+    var tutorial = true;
 
     Platformer.prototype = {
         create: function () {
@@ -158,7 +156,7 @@
             levens2 = 3;
             scorep1 = 0;
             scorep2 = 0;
-
+            tutorial = true
             aantalplastic = 0;
             aantalpapier = 0;
             aantaleten = 0;
@@ -181,6 +179,11 @@
             bg3 = this.game.add.sprite(0, 0, 'pbbg3');
             bg3.visible = false;
 
+            pakop = this.game.add.sprite(0, 0, 'pakop');
+            
+            uitleg = this.game.add.sprite(30, 30, 'uitleg');
+            gameover = this.game.add.sprite(0, 0, 'gameover');;
+
             //  The platforms group contains the ground and the 2 ledges we can jump on
             platforms = this.game.add.group();
 
@@ -188,7 +191,7 @@
             platforms.enableBody = true;
 
             // Here we create the ground.
-            platform = platforms.create(0, this.game.world.height - 50, 'platformground');
+            platform = platforms.create(0, this.game.world.height - 55, 'platformground');
 
             platform.alpha = 0.1;
 
@@ -210,7 +213,8 @@
             this.game.physics.arcade.enable(cont2);
             cont3 = this.game.add.sprite(800, 408, 'cont3');
             this.game.physics.arcade.enable(cont3);
-
+            recyclehier = this.game.add.sprite(500, 400, 'recyclehier');
+            recyclehier.visible = false;
             this.createenemy1();
             this.createenemy2();
             enemycreated = false;
@@ -247,10 +251,6 @@
                     ledge4.body.immovable = true;
                     break;
             }
-
-
-
-
             if (this.game.multiplay === true) {
                 // NOTE Player2
                 p2grab = this.input.keyboard.addKey(Phaser.Keyboard.E);
@@ -262,7 +262,7 @@
                 platplayer2.anchor.setTo(0.5, 0.5);
                 platplayer2.scale.setTo(0.6, 0.6);
                 this.game.physics.arcade.enable(platplayer2);
-                platplayer2.body.setSize(80, 135, 40, 0);
+                platplayer2.body.setSize(80, 131, 40, 0);
                 platplayer2.body.bounce.y = 0.1;
                 platplayer2.body.gravity.y = 700;
                 platplayer2.body.collideWorldBounds = true;
@@ -290,7 +290,7 @@
 
 
             this.game.physics.arcade.enable(platplayer1);
-            platplayer1.body.setSize(80, 135, 40, 0);
+            platplayer1.body.setSize(80, 131, 40, 0);
 
             //  platplayer1 physics properties. Give the little guy a slight bounce.
             platplayer1.body.bounce.y = 0.1;
@@ -305,7 +305,8 @@
             //this.createStars();
 
 
-            
+
+
 
             waste1 = this.game.add.sprite(200, 0, 'ssplastic');
             waste2 = this.game.add.sprite(400, 0, 'sspapier');
@@ -315,21 +316,24 @@
             waste1.scale.setTo(0.7, 0.7);
             //waste2 = this.game.add.sprite(400, 0, 'duck2');
             waste2.scale.setTo(0.7, 0.7);
-           // waste3 = this.game.add.sprite(800, 0, 'duck3');
+            // waste3 = this.game.add.sprite(800, 0, 'duck3');
             waste3.scale.setTo(0.7, 0.7);
 
-            stoplicht1 = this.game.add.sprite(200, 550, 'stoplicht');
-            stoplicht2 = this.game.add.sprite(400, 550, 'stoplicht');
-            stoplicht3 = this.game.add.sprite(800, 550, 'stoplicht');
+            waste1.kill();
+            waste3.kill();
+
+            stoplicht1 = this.game.add.sprite(150, 530, 'stoplicht');
+            stoplicht2 = this.game.add.sprite(490, 530, 'stoplicht');
+            stoplicht3 = this.game.add.sprite(850, 530, 'stoplicht');
             stoplicht1.scale.setTo(0.5, 0.5);
             stoplicht2.scale.setTo(0.5, 0.5);
             stoplicht3.scale.setTo(0.5, 0.5);
             stoplicht1.anchor.setTo(0.5, 0.5);
             stoplicht2.anchor.setTo(0.5, 0.5);
             stoplicht3.anchor.setTo(0.5, 0.5);
-            stoplicht1.frame=0;
-            stoplicht2.frame=0;
-            stoplicht3.frame=0;
+            stoplicht1.frame = 0;
+            stoplicht2.frame = 0;
+            stoplicht3.frame = 0;
 
 
 
@@ -435,7 +439,11 @@
 
         update: function () {
 
-
+            if (tutorial === true){
+                waste2.frame = 0;
+                pakop.x = waste2.x + 30;
+                pakop.y = waste2.y - 30;
+            }
 
             // NOTE trying to grab something
             this.physics.arcade.overlap(platplayer1, waste1, function (_player, _waste) {
@@ -452,7 +460,12 @@
             }, null, this);
 
             this.physics.arcade.overlap(platplayer1, waste2, function (_player, _waste) {
-                if (p1grab.isDown && carry1 !== true) {
+                if (tutorial === true){
+                    pakop.visible = false;
+                    recyclehier.visible = true;
+                }
+               
+               if (p1grab.isDown && carry1 !== true) {
                     carry1 = true;
                     waste2vast = "p1";
                     console.log("GRABBBINGGGGG");
@@ -721,6 +734,9 @@
 
             switch (round) {
                 case 2:
+                recyclehier.visible = false;
+                pakop.visible = false;
+                uitleg.visible = false;
                     this.createStars();
                     enemycreated = true;
                     enemyspeed1 = 130;
@@ -815,7 +831,7 @@
                     ledge1.x = 380;
                     ledge1.y = 110;
                     ledge2.x = 300;
-                    ledge2.y =370;
+                    ledge2.y = 370;
                     ledge3.x = 20;
                     ledge3.y = 230;
                     ledge4.x = 700;
@@ -850,47 +866,40 @@
             }
         },
         collectlife: function (platplayer1, life) {
-            {
 
-                if (levens1 < 3) {
-                    lifeup.kill();
-
-                    switch (levens1) {
-                        case 1:
-                            lifep11.visible = true;
-                            lifep12.visible = true;
-                            lifep13.visible = false;
-                            break;
-                        case 2:
-                            lifep11.visible = true;
-                            lifep12.visible = true;
-                            lifep13.visible = true;
-                            break;
-
-                    }
-                    levens1++;
-                } else {
-                    if (fulltext) {
-                        fulltext.destroy();
-                    }
-
-                    fulltext = this.add.text(platplayer1.x, platplayer1.y - 40, 'Al maximum levens', {
-                        font: '15px Arial',
-                        fill: '#000',
-                        align: 'center'
-                    });
-                    this.game.time.events.add(Phaser.Timer.SECOND * 2, this.fullaway, this);
+            if (levens1 < 3) {
+                lifeup.kill();
+                switch (levens1) {
+                    case 1:
+                        lifep11.visible = true;
+                        lifep12.visible = true;
+                        lifep13.visible = false;
+                        break;
+                    case 2:
+                        lifep11.visible = true;
+                        lifep12.visible = true;
+                        lifep13.visible = true;
+                        break;
                 }
-                //audiocoin.play();
-                // Removes the star from the screen
+                levens1++;
+            } else {
+                if (fulltext) {
+                    fulltext.destroy();
+                }
 
-
-
-
-                //if (score === 240) {
-                //  this.game.state.start('score');
-                //}
+                fulltext = this.add.text(platplayer1.x, platplayer1.y - 40, 'Al maximum levens', {
+                    font: '15px Arial',
+                    fill: '#000',
+                    align: 'center'
+                });
+                this.game.time.events.add(Phaser.Timer.SECOND * 2, this.fullaway, this);
             }
+            //audiocoin.play();
+            // Removes the star from the screen
+            //if (score === 240) {
+            //  this.game.state.start('score');
+            //}
+
 
 
         },
@@ -994,10 +1003,15 @@
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
                     stoplicht1.frame = aantalplastic;
+
                     waste1.kill();
                     wastecollected++;
                     break;
                 case "sspapier":
+
+
+
+
                     if (waste2vast === "p1") {
                         scorep1 += 50;
                         aantalpapier++;
@@ -1007,8 +1021,15 @@
                         aantalpapier++;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
+
                     waste2.kill();
-                    wastecollected++;
+                    if (tutorial === true) {
+                        wastecollected = 3;
+                        tutorial = false;
+                    } else {
+                        wastecollected++;
+                    }
+
                     stoplicht2.frame = aantalpapier;
                     break;
                 case "sseten":
@@ -1027,22 +1048,8 @@
                     break;
 
             }
-
             audiocoin.play();
-            // Removes the star from the screen
-
-            
             this.checkWasteCollected();
-            //  Add and update the score
-            //scorep2 += 10;
-            //scoreTextp2.text = 'Score P2:\n' + scorep2;
-            //scoretogether = scorep1 + scorep2;
-            //starsalive--;
-            //this.checkscore();
-            //if (score === 240) {
-            //this.game.state.start('score');
-            //}
-
         },
 
 
@@ -1056,22 +1063,44 @@
 
         },
         checkWasteCollected: function () {
+
             console.log("wastecolledted = " + wastecollected);
             if (wastecollected === 3) {
-                wastecollected = 0;
-                
-                waste1.y = -100;
-                waste1.x = 500;
-                waste2.y = -200;
-                waste2.x = 70;
-                waste3.y = -150;
-                waste3.x = 300;
-                waste1.revive();
-                waste2.revive();
-                waste3.revive();
+
+                var randomm = this.game.rnd.integerInRange(1, 5);
+
+                switch (randomm) {
+                    case 1:
+                        waste1.reset(200, 0);
+                        waste2.reset(500, 0);
+                        waste3.reset(800, 0);
+                        break;
+                    case 2:
+                        waste1.reset(600, 0);
+                        waste2.reset(800, 0);
+                        waste3.reset(100, 0);
+                        break;
+                    case 3:
+                        waste1.reset(800, 0);
+                        waste2.reset(100, 0);
+                        waste3.reset(300, 0);
+                        break;
+                    case 4:
+                        waste1.reset(400, 0);
+                        waste2.reset(100, 0);
+                        waste3.reset(600, 0);
+                        break;
+                    case 5:
+                        waste1.reset(800, 0);
+                        waste2.reset(600, 0);
+                        waste3.reset(200, 0);
+                        break;
+
+
+                }
+
                 wastecollected = 0;
                 this.levelup();
-
             }
 
 
