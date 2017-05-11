@@ -284,6 +284,7 @@
                 backtomain = true;
                 p2back = this.input.keyboard.addKey(Phaser.Keyboard.E);
                 p2back.onDown.add(this.p2back, this);
+                this.game.time.events.add(Phaser.Timer.SECOND * 10, this.toScreensaver, this);
             }
 
 
@@ -299,6 +300,11 @@
 
 
         },
+        toScreensaver: function() {
+            scoreaudio.stop();
+            this.game.state.start('screensaver');
+        },
+
 
         showscores: function() {
             //dudes.visible = true;
@@ -318,6 +324,7 @@
                     nameArray
                 ];
 
+                this.game.time.events.add(Phaser.Timer.SECOND * 10, this.toScreensaver, this);
                 switch (this.game.currentgame) {
                     case "breakout":
                         localStorage.setItem('highgame1', JSON.stringify(booya));

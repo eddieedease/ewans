@@ -28,6 +28,10 @@
             this.load.spritesheet('sspapier', 'assets/sspapier.png', 70, 70);
             this.load.spritesheet('sseten', 'assets/sseten.png', 70, 70);
 
+            this.load.image('fleece', 'assets/fleece.png');
+            this.load.image('kranten', 'assets/kranten.png');
+            this.load.image('compost', 'assets/compost.png');
+
 
             //this.load.audio('menu', ['assets/audio/menu.ogg']);
             this.load.audio('platformer', ['assets/audio/platformer.ogg']);

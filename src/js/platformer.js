@@ -140,6 +140,10 @@
     var aantalpapier;
     var aantaleten;
 
+    var kranten;
+    var compost;
+    var fleece;
+
     var tutorial = true;
 
     Platformer.prototype = {
@@ -180,9 +184,9 @@
             bg3.visible = false;
 
             pakop = this.game.add.sprite(0, 0, 'pakop');
-            
+
             uitleg = this.game.add.sprite(30, 30, 'uitleg');
-            gameover = this.game.add.sprite(0, 0, 'gameover');;
+            //gameover = this.game.add.sprite(0, 0, 'gameover');
 
             //  The platforms group contains the ground and the 2 ledges we can jump on
             platforms = this.game.add.group();
@@ -259,7 +263,7 @@
                 p2up = this.input.keyboard.addKey(Phaser.Keyboard.Q);
                 p2down = this.input.keyboard.addKey(Phaser.Keyboard.S);
                 platplayer2 = this.game.add.sprite(900, this.game.world.height - 250, 'crp2');
-                platplayer2.anchor.setTo(0.5, 0.5);
+                platplayer2.anchor.setTo(0.3, 0.5);
                 platplayer2.scale.setTo(0.6, 0.6);
                 this.game.physics.arcade.enable(platplayer2);
                 platplayer2.body.setSize(80, 131, 40, 0);
@@ -284,7 +288,7 @@
             // p1
             // The platplayer1 and its settings
             platplayer1 = this.game.add.sprite(100, this.game.world.height - 250, 'crp1');
-            platplayer1.anchor.setTo(0.5, 0.5);
+            platplayer1.anchor.setTo(0.3, 0.5);
             platplayer1.scale.setTo(0.6, 0.6);
 
 
@@ -360,29 +364,12 @@
             waste3.body.gravity.y = 200;
             waste3.body.bounce.y = 0.2;
 
-
-
-
-
-            //waste1.body.bounce.y = 0.7 + Math.random() * 0.2;
-
-
-            //scoringtext = this.game.add.bitmapText(this.game.world.centerX, this.game.world.height - 30, 'scorefont', 'score voor volgende ronde: ' + levelscores[currentlevel], 30);
-            //scoringtext.anchor.setTo(0.5, 0.5);
-            //scoringtext.align = "center";
-
             scoreTextp1 = this.game.add.bitmapText(100, 40, 'scorefont', 'Score P1\n0', 40);
 
             scoreTextp1.anchor.setTo(0.5, 0.5);
 
-
             //  Our controls.
             cursors = this.game.input.keyboard.createCursorKeys();
-
-
-            //timerdisplay = this.game.add.bitmapText(this.game.world.centerX, 50, 'scorefont', 'Go!', 40);
-            //timerdisplay.anchor.setTo(0.5, 0.5);
-            //this.game.time.events.loop(Phaser.Timer.SECOND, this.timerLoop, this);
 
             //LIFE UP
             lifeup = this.game.add.sprite(this.game.width / 2, 30, 'lifeup');
@@ -390,8 +377,6 @@
             this.game.physics.arcade.enable(lifeup);
             lifeup.body.gravity.y = 100;
             lifeup.kill();
-
-
 
             lifep11 = this.game.add.image(240, 30, 'p1life');
             lifep12 = this.game.add.image(280, 30, 'p1life');
@@ -417,6 +402,10 @@
             creditadd = this.input.keyboard.addKey(Phaser.Keyboard.O);
             creditadd.onDown.add(this.creditadd, this);
 
+            fleece = this.game.add.image(80, 330, 'fleece');
+             kranten = this.game.add.image(400, 330, 'kranten');
+             kranten = this.game.add.image(780, 330, 'compost');
+
 
 
 
@@ -439,7 +428,7 @@
 
         update: function () {
 
-            if (tutorial === true){
+            if (tutorial === true) {
                 waste2.frame = 0;
                 pakop.x = waste2.x + 30;
                 pakop.y = waste2.y - 30;
@@ -460,12 +449,13 @@
             }, null, this);
 
             this.physics.arcade.overlap(platplayer1, waste2, function (_player, _waste) {
-                if (tutorial === true){
-                    pakop.visible = false;
-                    recyclehier.visible = true;
-                }
-               
-               if (p1grab.isDown && carry1 !== true) {
+
+                if (p1grab.isDown && carry1 !== true) {
+                    if (tutorial === true) {
+                        pakop.visible = false;
+                        recyclehier.visible = true;
+                    }
+
                     carry1 = true;
                     waste2vast = "p1";
                     console.log("GRABBBINGGGGG");
@@ -553,6 +543,10 @@
                 // NOTE trying to grab something
                 this.physics.arcade.overlap(platplayer2, waste1, function (_player, _waste) {
                     if (p2grab.isDown && carry2 !== true) {
+                        if (tutorial === true) {
+                            pakop.visible = false;
+                            recyclehier.visible = true;
+                        }
                         carry2 = true;
                         waste1vast = "p2";
                         console.log("GRABBBINGGGGG");
@@ -734,9 +728,9 @@
 
             switch (round) {
                 case 2:
-                recyclehier.visible = false;
-                pakop.visible = false;
-                uitleg.visible = false;
+                    recyclehier.visible = false;
+                    pakop.visible = false;
+                    uitleg.visible = false;
                     this.createStars();
                     enemycreated = true;
                     enemyspeed1 = 130;
@@ -1098,6 +1092,28 @@
 
 
                 }
+
+                var r1;
+                var r2;
+                var r3;
+
+                if (round <= 3) {
+                    r1 = this.game.rnd.integerInRange(0, 2);
+                    r2 = this.game.rnd.integerInRange(0, 2);
+                    r3 = this.game.rnd.integerInRange(0, 2);
+                } else {
+                    r1 = this.game.rnd.integerInRange(4, 6);
+                    r2 = this.game.rnd.integerInRange(4, 6);
+                    r3 = this.game.rnd.integerInRange(4, 6);
+                }
+
+                waste1.frame = r1;
+                waste2.frame = r2;
+                waste3.frame = r3;
+
+
+
+
 
                 wastecollected = 0;
                 this.levelup();
