@@ -167,6 +167,9 @@
     var over;
     var overtween;
 
+    var ontwijk;
+    var ontwijktween;
+
     Platformer.prototype = {
         create: function () {
 
@@ -215,6 +218,10 @@
             bg2.visible = false;
             bg3 = this.game.add.sprite(0, 0, 'pbbg3');
             bg3.visible = false;
+
+            ontwijk = this.game.add.sprite(340, -25, 'ontwijk');
+            ontwijk.visible = false;
+
 
             train = this.game.add.sprite(-1200, 350, 'train', 0);
 
@@ -452,7 +459,7 @@
             kranten = this.game.add.image(400, 600, 'kranten');
             compost = this.game.add.image(780, 600, 'compost');
 
-            over = this.game.add.sprite(200, 150, 'gameoverr');
+            over = this.game.add.sprite(100, 240, 'gameoverr');
             over.alpha = 0;
 
 
@@ -809,12 +816,15 @@
                     recyclehier.visible = false;
                     pakop.visible = false;
                     uitleg.visible = false;
+                    ontwijk.visible = true;
                     //this.createStars();
                     enemycreated = true;
                     enemyspeed1 = 100;
                     enemyspeed2 = -100;
+                    
                     break;
                 case 3:
+                ontwijk.visible = false;
                     enemyspeed1 = 130;
                     enemyspeed2 = -130;
                     var randomx = this.game.rnd.integerInRange(20, 980);
@@ -1131,7 +1141,7 @@
                         cheering.play();
                         plastictween = this.game.add.tween(fleece).to({
                             y: 300
-                        }, 3000, Phaser.Easing.Bounce.Out, true);
+                        }, 5000, Phaser.Easing.Bounce.Out, true);
                         plastictween.onComplete.add(this.endTweenFleece, this);
                     }
 
@@ -1163,7 +1173,7 @@
                         cheering.play();
                         papiertween = this.game.add.tween(kranten).to({
                             y: 300
-                        }, 3000, Phaser.Easing.Bounce.Out, true);
+                        }, 5000, Phaser.Easing.Bounce.Out, true);
                         papiertween.onComplete.add(this.endTweenKranten, this);
                     }
                     break;
@@ -1184,7 +1194,7 @@
                         cheering.play();
                         etentween = this.game.add.tween(compost).to({
                             y: 300
-                        }, 3000, Phaser.Easing.Bounce.Out, true);
+                        }, 5000, Phaser.Easing.Bounce.Out, true);
                         etentween.onComplete.add(this.endTweenCompost, this);
                     }
                     break;

@@ -34,6 +34,8 @@
             this.load.image('kranten', 'assets/kranten.png');
             this.load.image('compost', 'assets/compost.png');
 
+            this.load.image('ontwijk', 'assets/ontwijk.png');
+
 
             //this.load.audio('menu', ['assets/audio/menu.ogg']);
             this.load.audio('platformer', ['assets/audio/platformer.ogg']);
