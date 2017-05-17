@@ -47,6 +47,8 @@
     var animationstarted = false;
 
     var is1player = true;
+
+    var levelsound;
     /*
         var distance = 700;
         var speed = 2;
@@ -74,7 +76,7 @@
             // video = null;
             /*canvas = this.game.add.bitmapData(1000, 563);
             canvas.addToWorld();
-
+            
             for (var i = 0; i < max; i++) {
               xx[i] = Math.floor(Math.random() * 1000) - 400;
               yy[i] = Math.floor(Math.random() * 563) - 300;
@@ -93,6 +95,8 @@
               zz3[b] = Math.floor(Math.random() * 1700) - 100;
             }*/
 
+            levelsound = this.game.add.audio('levelsound');
+            
             this.game.stage.backgroundColor = "#000";
             animationstarted = false;
             is1player = true;
@@ -293,6 +297,7 @@
            
         },
         letplaysdone: function () {
+            levelsound.play();
             console.log("comes here");
             kiesspelers.alpha = 1;
             kiesspelerstween = this.game.add.tween(kiesspelers).to({

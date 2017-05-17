@@ -109,9 +109,10 @@
             name2 = ["a", "", "", ""];
 
             this.game.add.image(0, 0, 'scorebg');
-            dudes = this.game.add.image(this.game.width / 2, this.game.height - 150, 'scoredudes');
+            dudes = this.game.add.image(this.game.width / 2 + 90, this.game.height - 120, 'scoredudes');
             backbutton = this.game.add.sprite(25, 440, 'backbutton');
             dudes.anchor.setTo(0.5, 0.5);
+            dudes.scale.setTo(0.6, 0.6);
             dudes.visible = false;
 
 

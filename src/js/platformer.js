@@ -8,6 +8,7 @@
     var cursors;
 
     var music;
+    var playerhit;
 
     var stars;
     var score = 0;
@@ -154,6 +155,15 @@
     var stopbord2;
     var stopbord3;
 
+    var perron;
+
+    var buzzer;
+    var cheering;
+    var gameoversound;
+    var levelsound;
+    var wastecollectedsound;
+    var wastecollectedsound2;
+
     Platformer.prototype = {
         create: function () {
 
@@ -178,11 +188,21 @@
 
             music = this.game.add.audio('platformer');
 
+            playerhit = this.game.add.audio('birdhit');
+
             music.play();
             music.loopFull(1.0);
 
             audiohit = this.game.add.audio('hitby');
             audiocoin = this.game.add.audio('coin');
+
+
+            buzzer = this.game.add.audio('buzzer');
+            cheering = this.game.add.audio('cheering');
+            gameoversound = this.game.add.audio('gameoversound');
+            levelsound = this.game.add.audio('levelsound');
+            wastecollectedsound = this.game.add.audio('wastecollectedsound');
+            wastecollectedsound2 = this.game.add.audio('wastecollectedsound2');
 
             //  A simple background for our game
             bg1 = this.game.add.sprite(0, 0, 'sky');
@@ -190,6 +210,20 @@
             bg2.visible = false;
             bg3 = this.game.add.sprite(0, 0, 'pbbg3');
             bg3.visible = false;
+
+            train = this.game.add.sprite(-1200, 350, 'train', 0);
+
+            traintween = this.game.add.tween(train);
+
+            traintween.to({
+                x: 1500
+            }, 2000, Phaser.Easing.Linear.None);
+            //traintween.onComplete.add(firstTween, this);
+            traintween.start();
+
+            perron = this.game.add.sprite(0, 500, 'perron');
+
+            
 
             pakop = this.game.add.sprite(0, 0, 'pakop');
 
@@ -358,15 +392,7 @@
 
 
 
-            train = this.game.add.sprite(-1200, 390, 'train', 1);
-
-            traintween = this.game.add.tween(train);
-
-            traintween.to({
-                x: 1500
-            }, 2000, Phaser.Easing.Linear.None);
-            //traintween.onComplete.add(firstTween, this);
-            traintween.start();
+            
 
 
             this.game.physics.arcade.enable(waste1);
@@ -409,9 +435,9 @@
                 arraylives[n].anchor.setTo(0.5, 0.5);
             }
 
-            valid = this.game.add.image(this.game.width - 100, 100, 'valid')
+            /*valid = this.game.add.image(this.game.width - 100, 100, 'valid')
             valid.anchor.set(0.5, 0.5);
-            valid.visible = false;
+            valid.visible = false;*/
 
 
             creditadd = this.input.keyboard.addKey(Phaser.Keyboard.O);
@@ -570,10 +596,7 @@
                 // NOTE trying to grab something
                 this.physics.arcade.overlap(platplayer2, waste1, function (_player, _waste) {
                     if (p2grab.isDown && carry2 !== true) {
-                        if (tutorial === true) {
-                            pakop.visible = false;
-                            recyclehier.visible = true;
-                        }
+                        
                         carry2 = true;
                         waste1vast = "p2";
                         console.log("GRABBBINGGGGG");
@@ -586,6 +609,10 @@
 
                 this.physics.arcade.overlap(platplayer2, waste2, function (_player, _waste) {
                     if (p2grab.isDown && carry2 !== true) {
+                        if (tutorial === true) {
+                        pakop.visible = false;
+                        recyclehier.visible = true;
+                    }
                         carry2 = true;
                         waste2vast = "p2";
                         console.log("GRABBBINGGGGG");
@@ -730,22 +757,25 @@
             }
         },
         error1: function () {
+            buzzer.play();
                 stopbord1.visible = true;
             }
 
             ,
         error2: function () {
+            buzzer.play();
                 stopbord2.visible = true
             }
 
             ,
         error3: function () {
+            buzzer.play();
                 stopbord3.visible = true
             }
 
             ,
         levelup: function () {
-
+            levelsound.play();
             train.x = -1200;
             //traintween.to({x:1500}, 1000,  Phaser.Easing.Linear.None);
             //traintween.onComplete.add(firstTween, this);
@@ -773,14 +803,14 @@
                     recyclehier.visible = false;
                     pakop.visible = false;
                     uitleg.visible = false;
-                    this.createStars();
+                    //this.createStars();
                     enemycreated = true;
-                    enemyspeed1 = 130;
-                    enemyspeed2 = -130;
+                    enemyspeed1 = 100;
+                    enemyspeed2 = -100;
                     break;
                 case 3:
-                    enemyspeed1 = 200;
-                    enemyspeed2 = -200;
+                    enemyspeed1 = 130;
+                    enemyspeed2 = -130;
                     var randomx = this.game.rnd.integerInRange(20, 980);
                     lifeup.x = randomx;
                     lifeup.y = 0;
@@ -793,12 +823,12 @@
                     bg1.visible = false;
                     bg2.visible = true;
                     bg3.visible = false;
-                    enemyspeed1 = 230;
-                    enemyspeed2 = -230;
+                    enemyspeed1 = 200;
+                    enemyspeed2 = -200;
                     break;
                 case 5:
-                    enemyspeed1 = 300;
-                    enemyspeed2 = -300;
+                    enemyspeed1 = 250;
+                    enemyspeed2 = -250;
                     var randomx = this.game.rnd.integerInRange(0, 1000);
                     lifeup.x = randomx;
                     lifeup.y = 0;
@@ -807,15 +837,15 @@
                     lifeup.revive();
                     break;
                 case 6:
-                    enemyspeed1 = 360;
-                    enemyspeed2 = -360;
+                    enemyspeed1 = 300;
+                    enemyspeed2 = -300;
                     break;
                 case 7:
                     bg1.visible = false;
                     bg2.visible = false;
                     bg3.visible = true;
-                    enemyspeed1 = 400;
-                    enemyspeed2 = -400;
+                    enemyspeed1 = 450;
+                    enemyspeed2 = -450;
                     var randomx = this.game.rnd.integerInRange(0, 1000);
                     lifeup.x = randomx;
                     lifeup.y = 0;
@@ -824,8 +854,8 @@
                     lifeup.revive();
                     break;
                 case 8:
-                    enemyspeed1 = 440;
-                    enemyspeed2 = -440;
+                    enemyspeed1 = 500;
+                    enemyspeed2 = -500;
                     var randomx = this.game.rnd.integerInRange(0, 1000);
                     lifeup.x = randomx;
                     lifeup.y = 0;
@@ -902,8 +932,9 @@
             }
         },
         collectlife: function (platplayer1, life) {
-
+             
             if (levens1 < 3) {
+                cheering.play();
                 lifeup.kill();
                 switch (levens1) {
                     case 1:
@@ -943,8 +974,9 @@
             {
                 //audiocoin.play();
                 // Removes the star from the screen
-
+               
                 if (levens2 < 3) {
+                     cheering.play();
                     lifeup.kill();
 
                     switch (levens2) {
@@ -1073,6 +1105,7 @@
         },
 
         collectWaste1: function (container, _waste) {
+            wastecollectedsound2.play();
             console.log(_waste.key);
             switch (_waste.key) {
                 case "ssplastic":
@@ -1089,6 +1122,7 @@
                     stoplicht1.frame = aantalplastic;
 
                     if (aantalplastic === 3) {
+                        cheering.play();
                         plastictween = this.game.add.tween(fleece).to({
                             y: 300
                         }, 3000, Phaser.Easing.Bounce.Out, true);
@@ -1120,6 +1154,7 @@
 
                     stoplicht2.frame = aantalpapier;
                     if (aantalpapier === 3) {
+                        cheering.play();
                         papiertween = this.game.add.tween(kranten).to({
                             y: 300
                         }, 3000, Phaser.Easing.Bounce.Out, true);
@@ -1140,6 +1175,7 @@
                     wastecollected++;
                     stoplicht3.frame = aantaleten;
                     if (aantaleten === 3) {
+                        cheering.play();
                         etentween = this.game.add.tween(compost).to({
                             y: 300
                         }, 3000, Phaser.Easing.Bounce.Out, true);
@@ -1155,11 +1191,11 @@
 
 
         checkscore: function () {
-            if (starsalive === 0) {
+            /*if (starsalive === 0) {
                 starsalive = 14;
                 this.createStars();
                 //this.levelup();
-            }
+            }*/
 
         },
         checkWasteCollected: function () {
@@ -1167,6 +1203,8 @@
             console.log("wastecolledted = " + wastecollected);
 
             if (wastecollected === 3) {
+                starsalive = 14;
+                this.createStars();
 
                 var randomm = this.game.rnd.integerInRange(1, 5);
 
@@ -1231,6 +1269,7 @@
         },
         hitenemy: function (enemy, player) {
             audiohit.play();
+            playerhit.play();
 
             if (mintext) {
                 mintext.destroy();
@@ -1300,6 +1339,7 @@
 
                         if (this.game.multiplay === true) {
                             if (p2over === true) {
+                                gameoversound.play();
                                 this.game.scorep1 = scorep1;
                                 this.game.scorep2 = scorep2;
                                 scorep1 = 0;
@@ -1313,6 +1353,7 @@
                                 this.game.state.start('score');
                             }
                         } else if (this.game.multiplay === false || this.game.multiplay === undefined) {
+                            gameoversound.play();
                             scorep2 = null;
                             this.game.scorep1 = scorep1;
                             this.game.scorep2 = scorep2;
@@ -1344,6 +1385,7 @@
                         platplayer2.kill();
                         p2over = true;
                         if (p1over === true) {
+                            gameoversound.play();
                             this.game.scorep1 = scorep1;
                             this.game.scorep2 = scorep2;
                             scorep1 = 0;

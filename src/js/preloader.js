@@ -23,6 +23,7 @@
             this.load.image('recyclespeel', 'assets/recyclespeel.png');
             this.load.image('selectie', 'assets/selectie.png');
             this.load.image('stopbord', 'assets/stopbord.png');
+            this.load.image('perron', 'assets/perron.png');
 
             this.load.spritesheet('stoplicht', 'assets/stoplicht.png', 140, 56);
             this.load.spritesheet('ssplastic', 'assets/ssplastic.png', 70, 70);
@@ -40,6 +41,13 @@
             this.load.audio('coin', ['assets/audio/coin.ogg']);
             this.load.audio('hitby', ['assets/audio/hitby.ogg']);
             this.load.audio('scoresound', ['assets/audio/scoresound.ogg']);
+
+            this.load.audio('buzzer', ['assets/audio/buzzer_x.ogg']);
+            this.load.audio('cheering', ['assets/audio/cheering.ogg']);
+            this.load.audio('gameoversound', ['assets/audio/gameover.ogg']);
+            this.load.audio('levelsound', ['assets/audio/levelsound.ogg']);
+            this.load.audio('wastecollectedsound', ['assets/audio/wastecollected.ogg']);
+            this.load.audio('wastecollectedsound2', ['assets/audio/wastecollected2.ogg']);
             //this.load.audio('alarm', ['assets/audio/alarm.ogg']);
             this.load.bitmapFont('scorefont', 'assets/font/font.png', 'assets/font/font.fnt');
             this.load.image('levelup', 'assets/levelup.png');
