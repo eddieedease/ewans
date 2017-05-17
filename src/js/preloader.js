@@ -38,7 +38,7 @@
             //this.load.audio('menu', ['assets/audio/menu.ogg']);
             this.load.audio('platformer', ['assets/audio/platformer.ogg']);
             this.load.audio('birdhit', ['assets/audio/birdhit.ogg']);
-            this.load.audio('coin', ['assets/audio/coin.ogg']);
+            this.load.audio('click', ['assets/audio/click.ogg']);
             this.load.audio('hitby', ['assets/audio/hitby.ogg']);
             this.load.audio('scoresound', ['assets/audio/scoresound.ogg']);
 

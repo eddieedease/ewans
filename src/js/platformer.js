@@ -164,6 +164,9 @@
     var wastecollectedsound;
     var wastecollectedsound2;
 
+    var over;
+    var overtween;
+
     Platformer.prototype = {
         create: function () {
 
@@ -183,6 +186,8 @@
             aantalpapier = 0;
             aantaleten = 0;
 
+            
+
             //  We're going to be using physics, so enable the Arcade Physics system
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -194,7 +199,7 @@
             music.loopFull(1.0);
 
             audiohit = this.game.add.audio('hitby');
-            audiocoin = this.game.add.audio('coin');
+            audiocoin = this.game.add.audio('click');
 
 
             buzzer = this.game.add.audio('buzzer');
@@ -223,7 +228,7 @@
 
             perron = this.game.add.sprite(0, 500, 'perron');
 
-            
+
 
             pakop = this.game.add.sprite(0, 0, 'pakop');
 
@@ -392,7 +397,7 @@
 
 
 
-            
+
 
 
             this.game.physics.arcade.enable(waste1);
@@ -447,7 +452,8 @@
             kranten = this.game.add.image(400, 600, 'kranten');
             compost = this.game.add.image(780, 600, 'compost');
 
-
+            over = this.game.add.sprite(200, 150, 'gameoverr');
+            over.alpha = 0;
 
 
         },
@@ -596,7 +602,7 @@
                 // NOTE trying to grab something
                 this.physics.arcade.overlap(platplayer2, waste1, function (_player, _waste) {
                     if (p2grab.isDown && carry2 !== true) {
-                        
+
                         carry2 = true;
                         waste1vast = "p2";
                         console.log("GRABBBINGGGGG");
@@ -610,9 +616,9 @@
                 this.physics.arcade.overlap(platplayer2, waste2, function (_player, _waste) {
                     if (p2grab.isDown && carry2 !== true) {
                         if (tutorial === true) {
-                        pakop.visible = false;
-                        recyclehier.visible = true;
-                    }
+                            pakop.visible = false;
+                            recyclehier.visible = true;
+                        }
                         carry2 = true;
                         waste2vast = "p2";
                         console.log("GRABBBINGGGGG");
@@ -757,19 +763,19 @@
             }
         },
         error1: function () {
-            buzzer.play();
+                buzzer.play();
                 stopbord1.visible = true;
             }
 
             ,
         error2: function () {
-            buzzer.play();
+                buzzer.play();
                 stopbord2.visible = true
             }
 
             ,
         error3: function () {
-            buzzer.play();
+                buzzer.play();
                 stopbord3.visible = true
             }
 
@@ -932,7 +938,7 @@
             }
         },
         collectlife: function (platplayer1, life) {
-             
+
             if (levens1 < 3) {
                 cheering.play();
                 lifeup.kill();
@@ -974,9 +980,9 @@
             {
                 //audiocoin.play();
                 // Removes the star from the screen
-               
+
                 if (levens2 < 3) {
-                     cheering.play();
+                    cheering.play();
                     lifeup.kill();
 
                     switch (levens2) {
@@ -1110,13 +1116,13 @@
             switch (_waste.key) {
                 case "ssplastic":
                     if (waste1vast === "p1") {
-                        scorep1 += 50;
+                        scorep1 += 90;
                         scoreTextp1.text = 'Score P1:\n' + scorep1;
                         console.log("p1 scored");
                         aantalplastic++;
                     } else if (waste1vast === "p2") {
                         aantalplastic++;
-                        scorep2 += 50;
+                        scorep2 += 90;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
                     stoplicht1.frame = aantalplastic;
@@ -1134,11 +1140,11 @@
                     break;
                 case "sspapier":
                     if (waste2vast === "p1") {
-                        scorep1 += 50;
+                        scorep1 += 90;
                         aantalpapier++;
                         scoreTextp1.text = 'Score P1:\n' + scorep1;
                     } else if (waste2vast === "p2") {
-                        scorep2 += 50;
+                        scorep2 += 90;
                         aantalpapier++;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
@@ -1163,11 +1169,11 @@
                     break;
                 case "sseten":
                     if (waste3vast === "p1") {
-                        scorep1 += 50;
+                        scorep1 += 90;
                         aantaleten++;
                         scoreTextp1.text = 'Score P1:\n' + scorep1;
                     } else if (waste3vast === "p2") {
-                        scorep2 += 50;
+                        scorep2 += 90;
                         aantaleten++;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
                     }
@@ -1339,6 +1345,11 @@
 
                         if (this.game.multiplay === true) {
                             if (p2over === true) {
+                                over.alpha = 1;
+                                overtween = this.game.add.tween(over).from({
+                                    y: -200
+                                }, 3000, Phaser.Easing.Bounce.Out, true);
+                                overtween.onComplete.add(this.overDone, this);
                                 gameoversound.play();
                                 this.game.scorep1 = scorep1;
                                 this.game.scorep2 = scorep2;
@@ -1350,10 +1361,15 @@
                                 levens2 = 3;
                                 p2over = false;
                                 p1over = false;
-                                this.game.state.start('score');
+                                //this.game.state.start('score');
                             }
                         } else if (this.game.multiplay === false || this.game.multiplay === undefined) {
                             gameoversound.play();
+                            over.alpha = 1;
+                                overtween = this.game.add.tween(over).from({
+                                    y: -200
+                                }, 3000, Phaser.Easing.Bounce.Out, true);
+                                overtween.onComplete.add(this.overDone, this);
                             scorep2 = null;
                             this.game.scorep1 = scorep1;
                             this.game.scorep2 = scorep2;
@@ -1365,7 +1381,7 @@
                             levens2 = 3;
                             p2over = false;
                             p1over = false;
-                            this.game.state.start('score');
+                            //this.game.state.start('score');
                         }
                     }
                     break;
@@ -1386,6 +1402,11 @@
                         p2over = true;
                         if (p1over === true) {
                             gameoversound.play();
+                            over.alpha = 1;
+                                overtween = this.game.add.tween(over).from({
+                                    y: -200
+                                }, 3000, Phaser.Easing.Bounce.Out, true);
+                                overtween.onComplete.add(this.overDone, this);
                             this.game.scorep1 = scorep1;
                             this.game.scorep2 = scorep2;
                             scorep1 = 0;
@@ -1396,13 +1417,16 @@
                             levens2 = 3;
                             p2over = false;
                             p1over = false;
-                            this.game.state.start('score');
+                            //this.game.state.start('score');
                         }
                     }
                     break;
 
             }
         },
+         overDone: function () {
+this.game.state.start('score');
+         },
 
 
 

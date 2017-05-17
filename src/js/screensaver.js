@@ -35,12 +35,13 @@
 
     var tweenrecyclespeel;
     var recyclespeel;
-    var letsplay;
+   
     var kiesspelers;
     var selectie;
 
     var readytoplay = false;
 
+     var letsplay;
     var letsplaytween;
     var kiesspelerstween;
 
