@@ -170,6 +170,11 @@
     var ontwijk;
     var ontwijktween;
 
+
+    // "1","2","3"
+    var player1heeftvast;
+    var player2heeftvast;
+
     Platformer.prototype = {
         create: function () {
 

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     function Score() {
@@ -42,6 +42,10 @@
     // the names
     var genname1;
     var genname2;
+
+    var timerdisplay;
+    var counter = 30;
+    var timeralready;
 
 
     var donebutton;
@@ -102,8 +106,8 @@
 
 
     Score.prototype = {
-        create: function() {
-
+        create: function () {
+            timeralready = false;
 
             name1 = ["a", "", "", ""];
             name2 = ["a", "", "", ""];
@@ -122,7 +126,7 @@
 
             backbutton.visible = true;
 
-
+            counter = 30;
 
             scoreaudio = this.game.add.audio('scoresound');
 
@@ -144,6 +148,12 @@
             currentnumber2 = 0;
 
             this.game.highgame4 = JSON.parse(localStorage.getItem('highgame4'));
+
+            timerdisplay = this.game.add.bitmapText(this.game.world.centerX + 6, 40, 'scorefont', '', 30);
+            timerdisplay.anchor.setTo(0.5, 0.5);
+            //timerdisplay.fixedToCamera = true;
+            //timerdisplay.anchor.setTo(0.5, 0.5);
+
 
 
 
@@ -190,12 +200,14 @@
             };
 
             headertext = this.game.add.bitmapText(this.game.width / 2, this.game.height / 5 + 20, 'scorefont', 'goed gedaan! vul je naam in', 40);
-           // gamename.anchor.setTo(0.5, 0.5);
+            // gamename.anchor.setTo(0.5, 0.5);
             headertext.anchor.setTo(0.5, 0.5);
 
             //NOTE settings up player inputs (iffy)
 
             if (highp1) {
+                this.game.time.events.loop(Phaser.Timer.SECOND, this.timerLoop, this);
+                timeralready = true;
                 knoppenscore.visible = true;
                 backbutton.visible = false;
                 let11 = this.game.add.bitmapText(this.game.width / 2 - 100, this.game.height / 2, 'scorefont', 'a', 50);
@@ -228,6 +240,11 @@
             backtomain.onDown.add(this.backtomain, this);
 
             if (highp2 && this.game.multiplay === true) {
+
+                if (timeralready === false) {
+                    this.game.time.events.loop(Phaser.Timer.SECOND, this.timerLoop, this);
+                }
+
                 knoppenscore.visible = true;
                 backbutton.visible = false;
                 let21 = this.game.add.bitmapText(this.game.width / 2 - 100, this.game.height / 2 + 180, 'scorefont', 'a', 50);
@@ -285,7 +302,7 @@
                 backtomain = true;
                 p2back = this.input.keyboard.addKey(Phaser.Keyboard.E);
                 p2back.onDown.add(this.p2back, this);
-                this.game.time.events.add(Phaser.Timer.SECOND * 10, this.toScreensaver, this);
+                this.game.time.events.add(Phaser.Timer.SECOND * 15, this.toScreensaver, this);
             }
 
 
@@ -295,19 +312,45 @@
         },
 
         // UPDATE, do not use the update loop in this one
-        update: function() {
+        update: function () {
 
 
 
 
         },
-        toScreensaver: function() {
+        timerLoop: function () {
+            //slidertweento.start();
+            if (counter >= 0) {
+                counter--;
+                
+
+                 if (p1ready === true && p2ready == true) {
+                     timerdisplay.setText("");
+                 } else {
+                     timerdisplay.setText(counter);
+                 }
+
+            } else {
+                if (p1ready !== true && p2ready !== true) {
+                    timerdisplay.setText("");
+                    arrowcurrent1.visible = false;
+                    arrowcurrent2.visible = false;
+                    p1ready = true;
+                    p2ready = true;
+                    this.showscores();
+                }
+
+            }
+
+            //timerdisplay.fixedToCamera = true;
+        },
+        toScreensaver: function () {
             scoreaudio.stop();
             this.game.state.start('screensaver');
         },
 
 
-        showscores: function() {
+        showscores: function () {
             //dudes.visible = true;
 
             if (p1ready && p2ready) {
@@ -382,7 +425,7 @@
         },
 
         // OK TIME FOR THE KEYPRESS HANDLING
-        p1up: function() {
+        p1up: function () {
 
 
             if (p1ready === false) {
@@ -423,7 +466,7 @@
             //letters1[currentnumber1].setText = "b"
             //letters1[currentnumber1] = this.game.add.bitmapText(this.game.width / 2 - 80, this.game.height / 2, 'scorefont', alfabet[currentletter1], 50);
         },
-        p1down: function() {
+        p1down: function () {
 
             if (p1ready === false) {
                 var q;
@@ -454,7 +497,7 @@
                 name1[currentnumber1] = alfabet[currentletter1];
             }
         },
-        p2up: function() {
+        p2up: function () {
             if (p2ready === false) {
                 var q;
                 //is.game.world.remove(letters2[currentnumber2]);
@@ -485,7 +528,7 @@
                 name2[currentnumber2] = alfabet[currentletter2];
             }
         },
-        p2down: function() {
+        p2down: function () {
 
             if (p2ready === false) {
                 var q;
@@ -519,7 +562,7 @@
             }
 
         },
-        p1ok: function() {
+        p1ok: function () {
 
 
             if (p1ready === false) {
@@ -542,7 +585,7 @@
 
             }
         },
-        p2ok: function() {
+        p2ok: function () {
 
 
 
@@ -565,7 +608,7 @@
                 }
             }
         },
-        p1back: function() {
+        p1back: function () {
             if (p1ready === false) {
                 if (currentnumber1 != 0) {
                     currentnumber1--;
@@ -575,7 +618,7 @@
                 }
             }
         },
-        backtomain: function() {
+        backtomain: function () {
             if (backtomain === true) {
                 if (this.game.currentgame === "racer") {
                     location.reload();
@@ -585,7 +628,7 @@
                 return;
             }
         },
-        p2back: function() {
+        p2back: function () {
             if (p2ready === false) {
                 if (currentnumber2 !== 0) {
                     currentnumber2--;
