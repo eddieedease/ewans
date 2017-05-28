@@ -74,7 +74,8 @@
     Screensaver.prototype = {
         create: function () {
             credit = localStorage.getItem('credits');
-            // video = null;
+              // TODO: Video
+            
             /*canvas = this.game.add.bitmapData(1000, 563);
             canvas.addToWorld();
             
@@ -99,18 +100,30 @@
             levelsound = this.game.add.audio('levelsound');
             
             this.game.stage.backgroundColor = "#000";
+
+            video = this.game.add.video('introfilm');
+            this.game.time.events.add(Phaser.Timer.SECOND * 15, this.restartVid, this);
+            video.play();
+
+            
+            sprite = video.addToWorld(0, 0, 0, 0);
+            sprite.x = 0;
+            sprite.y = 0;
+
             animationstarted = false;
             is1player = true;
             recyclespeel = this.game.add.sprite(70, 200, 'recyclespeel');
             recyclespeel.alpha = 0;
             //  Here we create a tween on the sprite created above
-            tweenrecyclespeel = this.game.add.tween(recyclespeel).to({
-                alpha: 1
-            }, 2000, "Linear", true, 0, -1);
+            // tweenrecyclespeel = this.game.add.tween(recyclespeel).to({
+            //     alpha: 1
+            // }, 2000, "Linear", true, 0, -1);
+
+
             //  The object defines the properties to tween.
             //  In this case it will move to x 800
             //  The 5000 is the duration in ms - 5000ms = 5 seconds
-            tweenrecyclespeel.yoyo(true, 3000);
+            //tweenrecyclespeel.yoyo(true, 3000);
             //text = this.game.add.bitmapText(this.game.width / 2, this.game.height / 5, 'scorefont', 'Gooi het afval in de goede container', 40);
             //text.align = "center";
             // text.anchor.set(0.5);
@@ -130,14 +143,8 @@
             readytoplay = false;
             this.game.multiplay = false;
 
-            // TODO: Video
-            //video = this.game.add.video('introfilm');
-            //this.game.time.events.add(Phaser.Timer.SECOND * 60, this.restartVid, this);
-            //video.play();
+          
 
-            //sprite = video.addToWorld(0, 0, 0, 0);
-            //sprite.x = 170;
-            //sprite.y = 180;
 
 
             cursors = this.game.input.keyboard.createCursorKeys();

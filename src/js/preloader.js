@@ -63,7 +63,7 @@
 
             this.load.image('backbutton', 'assets/backbutton.png');
             //Films
-            //this.game.load.video('introfilm', 'assets/films/test.mp4');
+            this.game.load.video('introfilm', 'assets/films/test.mp4');
 
             this.load.image('knoppenscore', 'assets/knoppenscore.png');
             this.load.image('knoppenscorewhite', 'assets/knoppenscorewhite.png');

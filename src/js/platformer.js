@@ -175,6 +175,14 @@
     var player1heeftvast;
     var player2heeftvast;
 
+    var p1w1press = false;
+    var p1w2press = false;
+    var p1w3press = false;
+
+    var p2w1press = false;
+    var p2w2press = false;
+    var p2w3press = false;
+
     Platformer.prototype = {
         create: function () {
 
@@ -194,7 +202,7 @@
             aantalpapier = 0;
             aantaleten = 0;
 
-            
+
 
             //  We're going to be using physics, so enable the Arcade Physics system
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -208,6 +216,15 @@
 
             audiohit = this.game.add.audio('hitby');
             audiocoin = this.game.add.audio('click');
+
+
+            p1w1press = false;
+            p1w2press = false;
+            p1w2press = false;
+
+            p2w1press = false;
+            p2w2press = false;
+            p2w2press = false;
 
 
             buzzer = this.game.add.audio('buzzer');
@@ -495,7 +512,11 @@
 
             // NOTE trying to grab something
             this.physics.arcade.overlap(platplayer1, waste1, function (_player, _waste) {
-                if (p1grab.isDown && carry1 !== true) {
+                if (p1grab.isDown) {
+                    p1w1press = true
+                }
+
+                if (p1w1press === true && carry1 !== true) {
                     console.log("check")
                     console.log("GRABBBINGGGGG");
                     waste1vast = "p1";
@@ -509,7 +530,11 @@
 
             this.physics.arcade.overlap(platplayer1, waste2, function (_player, _waste) {
 
-                if (p1grab.isDown && carry1 !== true) {
+                if (p1grab.isDown) {
+                    p1w2press = true
+                }
+
+                if (p1w2press === true && carry1 !== true) {
                     if (tutorial === true) {
                         pakop.visible = false;
                         recyclehier.visible = true;
@@ -527,7 +552,12 @@
             }, null, this);
 
             this.physics.arcade.overlap(platplayer1, waste3, function (_player, _waste) {
-                if (p1grab.isDown && carry1 !== true) {
+
+                if (p1grab.isDown) {
+                    p1w3press = true
+                }
+
+                if (p1w3press === true && carry1 !== true) {
                     carry1 = true;
                     waste3vast = "p1";
                     console.log("GRABBBINGGGGG");
@@ -613,7 +643,11 @@
 
                 // NOTE trying to grab something
                 this.physics.arcade.overlap(platplayer2, waste1, function (_player, _waste) {
-                    if (p2grab.isDown && carry2 !== true) {
+
+                    if (p2grab.isDown) {
+                        p2w1press = true
+                    }
+                    if (p2w1press === true && carry2 !== true) {
 
                         carry2 = true;
                         waste1vast = "p2";
@@ -626,7 +660,11 @@
                 }, null, this);
 
                 this.physics.arcade.overlap(platplayer2, waste2, function (_player, _waste) {
-                    if (p2grab.isDown && carry2 !== true) {
+
+                    if (p2grab.isDown) {
+                        p2w2press = true
+                    }
+                    if (p2w2press === true && carry2 !== true) {
                         if (tutorial === true) {
                             pakop.visible = false;
                             recyclehier.visible = true;
@@ -643,7 +681,11 @@
                 }, null, this);
 
                 this.physics.arcade.overlap(platplayer2, waste3, function (_player, _waste) {
-                    if (p2grab.isDown && carry2 !== true) {
+                    if (p2grab.isDown) {
+                        p2w3press = true
+                    }
+
+                    if (p2w3press === true && carry2 !== true) {
                         carry2 = true;
                         waste3vast = "p2";
                         console.log("GRABBBINGGGGG");
@@ -826,10 +868,10 @@
                     enemycreated = true;
                     enemyspeed1 = 100;
                     enemyspeed2 = -100;
-                    
+
                     break;
                 case 3:
-                ontwijk.visible = false;
+                    ontwijk.visible = false;
                     enemyspeed1 = 130;
                     enemyspeed2 = -130;
                     var randomx = this.game.rnd.integerInRange(20, 980);
@@ -1131,11 +1173,16 @@
             switch (_waste.key) {
                 case "ssplastic":
                     if (waste1vast === "p1") {
+                        p1w1press = false;
+                        p1w2press = false;
+                        p1w3press = false;
                         scorep1 += 90;
                         scoreTextp1.text = 'Score P1:\n' + scorep1;
-                        console.log("p1 scored");
                         aantalplastic++;
                     } else if (waste1vast === "p2") {
+                        p2w1press = false;
+                        p2w2press = false;
+                        p2w3press = false;
                         aantalplastic++;
                         scorep2 += 90;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
@@ -1155,10 +1202,16 @@
                     break;
                 case "sspapier":
                     if (waste2vast === "p1") {
+                        p1w1press = false;
+                        p1w2press = false;
+                        p1w3press = false;
                         scorep1 += 90;
                         aantalpapier++;
                         scoreTextp1.text = 'Score P1:\n' + scorep1;
                     } else if (waste2vast === "p2") {
+                        p2w1press = false;
+                        p2w2press = false;
+                        p2w3press = false;
                         scorep2 += 90;
                         aantalpapier++;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
@@ -1184,10 +1237,16 @@
                     break;
                 case "sseten":
                     if (waste3vast === "p1") {
+                        p1w1press = false;
+                        p1w2press = false;
+                        p1w3press = false;
                         scorep1 += 90;
                         aantaleten++;
                         scoreTextp1.text = 'Score P1:\n' + scorep1;
                     } else if (waste3vast === "p2") {
+                        p2w1press = false;
+                        p2w2press = false;
+                        p2w3press = false;
                         scorep2 += 90;
                         aantaleten++;
                         scoreTextp2.text = 'Score P2:\n' + scorep2;
@@ -1381,10 +1440,10 @@
                         } else if (this.game.multiplay === false || this.game.multiplay === undefined) {
                             gameoversound.play();
                             over.alpha = 1;
-                                overtween = this.game.add.tween(over).from({
-                                    y: -200
-                                }, 3000, Phaser.Easing.Bounce.Out, true);
-                                overtween.onComplete.add(this.overDone, this);
+                            overtween = this.game.add.tween(over).from({
+                                y: -200
+                            }, 3000, Phaser.Easing.Bounce.Out, true);
+                            overtween.onComplete.add(this.overDone, this);
                             scorep2 = null;
                             this.game.scorep1 = scorep1;
                             this.game.scorep2 = scorep2;
@@ -1418,10 +1477,10 @@
                         if (p1over === true) {
                             gameoversound.play();
                             over.alpha = 1;
-                                overtween = this.game.add.tween(over).from({
-                                    y: -200
-                                }, 3000, Phaser.Easing.Bounce.Out, true);
-                                overtween.onComplete.add(this.overDone, this);
+                            overtween = this.game.add.tween(over).from({
+                                y: -200
+                            }, 3000, Phaser.Easing.Bounce.Out, true);
+                            overtween.onComplete.add(this.overDone, this);
                             this.game.scorep1 = scorep1;
                             this.game.scorep2 = scorep2;
                             scorep1 = 0;
@@ -1439,9 +1498,9 @@
 
             }
         },
-         overDone: function () {
-this.game.state.start('score');
-         },
+        overDone: function () {
+            this.game.state.start('score');
+        },
 
 
 
