@@ -320,7 +320,13 @@
         },
         timerLoop: function () {
             //slidertweento.start();
-            if (counter >= 0) {
+            if (counter === 0) {
+                p1ready = true;
+                    p2ready = true;
+                    this.showscores();
+            }
+
+            if (counter > 0) {
                 counter--;
                 
 
