@@ -369,7 +369,8 @@
 
             if (p1ready && p2ready) {
 
-                genname1 = name1.join('');
+                if (highp1 === true){
+                        genname1 = name1.join('');
                 p1ready = true;
                 headertext.text = '';
                 aantalhigh--;
@@ -379,8 +380,11 @@
                 scoresArray.splice(5, 1);
                 nameArray.splice(5, 1);
 
+                }
+
+            
                
-                if (this.game.multiplay === true) {
+                if (highp2 === true) {
                     genname2 = name2.join('');
                     p2ready = true;
                     aantalhigh--;
