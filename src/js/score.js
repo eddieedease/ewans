@@ -148,6 +148,8 @@
             currentnumber1 = 0;
             currentnumber2 = 0;
 
+
+
             this.game.highgame4 = JSON.parse(localStorage.getItem('highgame4'));
 
             timerdisplay = this.game.add.bitmapText(this.game.world.centerX + 6, 40, 'scorefont', '', 45);
@@ -175,6 +177,7 @@
                     if (highp1 !== true) {
                         highp1 = true;
                         plek1 = w;
+                        scoresArray[w] = scorep1;
                         console.log('player 1 = rank --> ' + plek1);
                         aantalhigh++;
                         break;
@@ -200,22 +203,19 @@
 
                     }
                 }
+
+
+                if (plek1 === plek2) {
+                    if (scorep1 >= scorep2) {
+                        plek2++;
+                    } else if (scorep1 < scorep2) {
+                        plek1++;
+                    }
+
+                }
             }
 
 
-
-
-
-
-            // Ok now the logic for building the CORRECT Array
-            if (highp1 === highp2) {
-                console.log("PLAYER 2 1 ABOVE PLAYER 1 --> ")
-                plek1++;
-            } else if (highp1 >= highp2) {
-                console.log("PLAYER 1 ABOVE player 2")
-            } else if (highp1 < highp2) {
-                console.log("PLAYER 2 ABOVE player 2")
-            }
 
 
 
