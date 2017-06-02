@@ -102,8 +102,8 @@
             this.game.stage.backgroundColor = "#000";
 
             video = this.game.add.video('introfilm');
-            this.game.time.events.add(Phaser.Timer.SECOND * 15, this.restartVid, this);
-            video.play();
+            video.stop();
+            video.play(true);
 
             
             sprite = video.addToWorld(0, 0, 0, 0);
@@ -188,9 +188,6 @@
 
 
 
-        },
-        restartVid: function () {
-            video.play();
         },
 
         creditadd: function () {
@@ -298,7 +295,9 @@
             }
 
             if (key.keyCode === 90 && readytoplay === true) {
+                video.stop();
                  this.game.state.start('platformer', true, false);
+                 
             }
 
 

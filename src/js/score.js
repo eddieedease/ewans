@@ -44,7 +44,7 @@
     var genname2;
 
     var timerdisplay;
-    var counter = 30;
+    var counter = 45;
     var timeralready;
 
 
@@ -95,6 +95,7 @@
 
     var scoresssss;
 
+    var toScore = false;
 
     var alfabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '@'];
 
@@ -119,14 +120,14 @@
             dudes.scale.setTo(0.6, 0.6);
             dudes.visible = false;
 
-
+            toScore = false;
 
             knoppenscore = this.game.add.sprite(25, 385, 'knoppenscore');
             knoppenscore.visible = false;
 
             backbutton.visible = true;
 
-            counter = 30;
+            counter = 45;
 
             scoreaudio = this.game.add.audio('scoresound');
 
@@ -149,7 +150,7 @@
 
             this.game.highgame4 = JSON.parse(localStorage.getItem('highgame4'));
 
-            timerdisplay = this.game.add.bitmapText(this.game.world.centerX + 6, 40, 'scorefont', '', 30);
+            timerdisplay = this.game.add.bitmapText(this.game.world.centerX + 6, 40, 'scorefont', '', 45);
             timerdisplay.anchor.setTo(0.5, 0.5);
             //timerdisplay.fixedToCamera = true;
             //timerdisplay.anchor.setTo(0.5, 0.5);
@@ -320,25 +321,29 @@
         },
         timerLoop: function () {
             //slidertweento.start();
-            if (counter === 0) {
+            if (counter === 0 && toScore === false) {
+                toScore = true;
+                timerdisplay.setText(" ");
                 p1ready = true;
-                    p2ready = true;
-                    this.showscores();
+                p2ready = true;
+                toScore = true;
+                
+
+
+                this.showscores();
             }
 
             if (counter > 0) {
                 counter--;
-                
-
-                 if (p1ready === true && p2ready == true) {
-                     timerdisplay.setText("");
-                 } else {
-                     timerdisplay.setText(counter);
-                 }
+                if (p1ready === true && p2ready == true) {
+                    timerdisplay.setText(" ");
+                } else {
+                    timerdisplay.setText(counter);
+                }
 
             } else {
                 if (p1ready !== true && p2ready !== true) {
-                    timerdisplay.setText("");
+                    timerdisplay.setText(" ");
                     arrowcurrent1.visible = false;
                     arrowcurrent2.visible = false;
                     p1ready = true;
@@ -359,7 +364,34 @@
         showscores: function () {
             //dudes.visible = true;
 
+            //TODO set ok for score. set all
+              
+
             if (p1ready && p2ready) {
+
+                genname1 = name1.join('');
+                p1ready = true;
+                headertext.text = '';
+                aantalhigh--;
+                arrowcurrent1.visible = false;
+                scoresArray.splice(plek1, 0, scorep1);
+                nameArray.splice(plek1, 0, genname1);
+                scoresArray.splice(5, 1);
+                nameArray.splice(5, 1);
+
+               
+                if (this.game.multiplay === true) {
+                    genname2 = name2.join('');
+                    p2ready = true;
+                    aantalhigh--;
+                    arrowcurrent2.visible = false;
+                    headertext.text = '';
+                    scoresArray.splice(plek2, 0, scorep2);
+                    nameArray.splice(plek2, 0, genname2);
+                    scoresArray.splice(5, 1);
+                    nameArray.splice(5, 1);
+                }
+
                 knoppenscore.visible = false;
                 backbutton.visible = true;
                 dudes.visible = true;
@@ -577,15 +609,10 @@
                     arrowcurrent1.x = arrowcurrent1.x + 50;
                 } else {
                     //TODO set ok for score. set all
-                    genname1 = name1.join('');
+                    
                     p1ready = true;
-                    headertext.text = '';
                     aantalhigh--;
                     arrowcurrent1.visible = false;
-                    scoresArray.splice(plek1, 0, scorep1);
-                    nameArray.splice(plek1, 0, genname1);
-                    scoresArray.splice(5, 1);
-                    nameArray.splice(5, 1);
                     this.showscores();
                 }
 
@@ -600,16 +627,10 @@
                     currentnumber2++;
                     arrowcurrent2.x = arrowcurrent2.x + 50;
                 } else {
-                    genname2 = name2.join('');
+                    
                     p2ready = true;
                     aantalhigh--;
                     arrowcurrent2.visible = false;
-                    headertext.text = '';
-                    scoresArray.splice(plek2, 0, scorep2);
-                    nameArray.splice(plek2, 0, genname2);
-                    scoresArray.splice(5, 1);
-                    nameArray.splice(5, 1);
-
                     this.showscores();
                 }
             }
