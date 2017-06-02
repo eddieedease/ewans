@@ -49,6 +49,7 @@
 
             this.game.aantalphones = parseInt(this.game.aantalphones);
 
+            // if highscores don't exit --> create
             if (this.game.highgame4 === null) {
                 console.log("yesss!");
                 var booya = [

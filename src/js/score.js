@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     function Score() {
@@ -107,7 +107,7 @@
 
 
     Score.prototype = {
-        create: function () {
+        create: function() {
             timeralready = false;
 
             name1 = ["a", "", "", ""];
@@ -172,33 +172,53 @@
                 if (scoresArray[w] >= scorep1 || scorep1 == null) {
 
                 } else {
-                    highp1 = true;
-                    plek1 = w;
-                    aantalhigh++;
-                    break;
-                }
-            };
-
-            // checking score player 2
-            for (var o = 0; o < scoresArray.length; o++) {
-                if (scoresArray[o] >= scorep2 || scorep2 == null) {
-
-                } else {
-
-                    highp2 = true;
-                    plek2 = o;
-                    aantalhigh++;
-
-                    if (plek2 === plek1) {
-                        if (highp1 > highp2) {
-                            plek2 = plek2++;
-                        } else if (highp1 < highp2) {
-                            plek2 = plek2--;
-                        }
+                    if (highp1 !== true) {
+                        highp1 = true;
+                        plek1 = w;
+                        console.log('player 1 = rank --> ' + plek1);
+                        aantalhigh++;
+                        break;
                     }
-                    break;
+
                 }
-            };
+            }
+
+            // check if multiplay
+            if (this.game.multiplay === true) {
+                for (var o = 0; o < scoresArray.length; o++) {
+                    if (scoresArray[o] >= scorep2 || scorep2 == null) {
+
+                    } else {
+                        if (highp2 !== true) {
+                            console.log("trace");
+                            highp2 = true;
+                            plek2 = o;
+                            console.log('player 2 = rank --> ' + plek2);
+                            aantalhigh++;
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+
+
+
+
+
+            // Ok now the logic for building the CORRECT Array
+            if (highp1 === highp2) {
+                console.log("PLAYER 2 1 ABOVE PLAYER 1 --> ")
+                plek1++;
+            } else if (highp1 >= highp2) {
+                console.log("PLAYER 1 ABOVE player 2")
+            } else if (highp1 < highp2) {
+                console.log("PLAYER 2 ABOVE player 2")
+            }
+
+
+
 
             headertext = this.game.add.bitmapText(this.game.width / 2, this.game.height / 5 + 20, 'scorefont', 'goed gedaan! vul je naam in', 40);
             // gamename.anchor.setTo(0.5, 0.5);
@@ -207,6 +227,7 @@
             //NOTE settings up player inputs (iffy)
 
             if (highp1) {
+                console.log("player 1 has a high score !")
                 this.game.time.events.loop(Phaser.Timer.SECOND, this.timerLoop, this);
                 timeralready = true;
                 knoppenscore.visible = true;
@@ -241,7 +262,7 @@
             backtomain.onDown.add(this.backtomain, this);
 
             if (highp2 && this.game.multiplay === true) {
-
+                console.log("player 2 has a high score !!");
                 if (timeralready === false) {
                     this.game.time.events.loop(Phaser.Timer.SECOND, this.timerLoop, this);
                 }
@@ -313,21 +334,20 @@
         },
 
         // UPDATE, do not use the update loop in this one
-        update: function () {
+        update: function() {
 
 
 
 
         },
-        timerLoop: function () {
+        timerLoop: function() {
             //slidertweento.start();
             if (counter === 0 && toScore === false) {
                 toScore = true;
                 timerdisplay.setText(" ");
                 p1ready = true;
                 p2ready = true;
-                toScore = true;
-                
+
 
 
                 this.showscores();
@@ -355,35 +375,35 @@
 
             //timerdisplay.fixedToCamera = true;
         },
-        toScreensaver: function () {
+        toScreensaver: function() {
             scoreaudio.stop();
             this.game.state.start('screensaver');
         },
 
 
-        showscores: function () {
+        showscores: function() {
             //dudes.visible = true;
 
             //TODO set ok for score. set all
-              
+
 
             if (p1ready && p2ready) {
 
-                if (highp1 === true){
-                        genname1 = name1.join('');
-                p1ready = true;
-                headertext.text = '';
-                aantalhigh--;
-                arrowcurrent1.visible = false;
-                scoresArray.splice(plek1, 0, scorep1);
-                nameArray.splice(plek1, 0, genname1);
-                scoresArray.splice(5, 1);
-                nameArray.splice(5, 1);
+                if (highp1 === true) {
+                    genname1 = name1.join('');
+                    p1ready = true;
+                    headertext.text = '';
+                    aantalhigh--;
+                    arrowcurrent1.visible = false;
+                    scoresArray.splice(plek1, 0, scorep1);
+                    nameArray.splice(plek1, 0, genname1);
+                    scoresArray.splice(5, 1);
+                    nameArray.splice(5, 1);
 
                 }
 
-            
-               
+
+
                 if (highp2 === true) {
                     genname2 = name2.join('');
                     p2ready = true;
@@ -467,7 +487,7 @@
         },
 
         // OK TIME FOR THE KEYPRESS HANDLING
-        p1up: function () {
+        p1up: function() {
 
 
             if (p1ready === false) {
@@ -508,7 +528,7 @@
             //letters1[currentnumber1].setText = "b"
             //letters1[currentnumber1] = this.game.add.bitmapText(this.game.width / 2 - 80, this.game.height / 2, 'scorefont', alfabet[currentletter1], 50);
         },
-        p1down: function () {
+        p1down: function() {
 
             if (p1ready === false) {
                 var q;
@@ -539,7 +559,7 @@
                 name1[currentnumber1] = alfabet[currentletter1];
             }
         },
-        p2up: function () {
+        p2up: function() {
             if (p2ready === false) {
                 var q;
                 //is.game.world.remove(letters2[currentnumber2]);
@@ -570,7 +590,7 @@
                 name2[currentnumber2] = alfabet[currentletter2];
             }
         },
-        p2down: function () {
+        p2down: function() {
 
             if (p2ready === false) {
                 var q;
@@ -604,7 +624,7 @@
             }
 
         },
-        p1ok: function () {
+        p1ok: function() {
 
 
             if (p1ready === false) {
@@ -613,7 +633,7 @@
                     arrowcurrent1.x = arrowcurrent1.x + 50;
                 } else {
                     //TODO set ok for score. set all
-                    
+
                     p1ready = true;
                     aantalhigh--;
                     arrowcurrent1.visible = false;
@@ -622,7 +642,7 @@
 
             }
         },
-        p2ok: function () {
+        p2ok: function() {
 
 
 
@@ -631,7 +651,7 @@
                     currentnumber2++;
                     arrowcurrent2.x = arrowcurrent2.x + 50;
                 } else {
-                    
+
                     p2ready = true;
                     aantalhigh--;
                     arrowcurrent2.visible = false;
@@ -639,7 +659,7 @@
                 }
             }
         },
-        p1back: function () {
+        p1back: function() {
             if (p1ready === false) {
                 if (currentnumber1 != 0) {
                     currentnumber1--;
@@ -649,7 +669,7 @@
                 }
             }
         },
-        backtomain: function () {
+        backtomain: function() {
             if (backtomain === true) {
                 if (this.game.currentgame === "racer") {
                     location.reload();
@@ -659,7 +679,7 @@
                 return;
             }
         },
-        p2back: function () {
+        p2back: function() {
             if (p2ready === false) {
                 if (currentnumber2 !== 0) {
                     currentnumber2--;
