@@ -54,10 +54,12 @@
                 console.log("yesss!");
                 var booya = [
                     [0, 0, 0, 0, 0],
-                    [".....", ".....", ".....", ".....", "....."]
+                    ["", "", "", "", ""]
                 ];
                 localStorage.setItem('highgame4', JSON.stringify(booya));
                 this.game.highgame1 = JSON.parse(localStorage.getItem('highgame4'));
+            } else {
+                console.log(this.game.highgame4);
             }
 
 

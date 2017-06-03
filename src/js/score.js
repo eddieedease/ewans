@@ -177,8 +177,6 @@
                     if (highp1 !== true) {
                         highp1 = true;
                         plek1 = w;
-                        scoresArray[w] = scorep1;
-                        console.log('player 1 = rank --> ' + plek1);
                         aantalhigh++;
                         break;
                     }
@@ -196,8 +194,22 @@
                             console.log("trace");
                             highp2 = true;
                             plek2 = o;
+                            if (plek2 === plek1) {
+                                console.log('comes here everrrrr')
+                                if (scorep1 >= scorep2) {
+                                    plek2++;
+                                } else if (scorep2 > scorep1) {
+                                    plek1++;
+                                }
+                            }
+
+
+                            console.log('player 1 = rank --> ' + plek1);
                             console.log('player 2 = rank --> ' + plek2);
                             aantalhigh++;
+
+
+
                             break;
                         }
 
@@ -205,14 +217,7 @@
                 }
 
 
-                if (plek1 === plek2) {
-                    if (scorep1 >= scorep2) {
-                        plek2++;
-                    } else if (scorep1 < scorep2) {
-                        plek1++;
-                    }
 
-                }
             }
 
 
@@ -387,9 +392,11 @@
             //TODO set ok for score. set all
 
 
+
             if (p1ready && p2ready) {
 
                 if (highp1 === true) {
+                    console.log('plek 1 = ' + plek1);
                     genname1 = name1.join('');
                     p1ready = true;
                     headertext.text = '';
@@ -405,6 +412,7 @@
 
 
                 if (highp2 === true) {
+                    console.log('plek 2 = ' + plek2);
                     genname2 = name2.join('');
                     p2ready = true;
                     aantalhigh--;
