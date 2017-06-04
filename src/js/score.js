@@ -103,6 +103,9 @@
     var scoresArray = [];
     var nameArray = [];
 
+    var p1higher = false;
+    var p2higher = false;
+
     //control
 
 
@@ -121,6 +124,9 @@
             dudes.visible = false;
 
             toScore = false;
+
+            p1higher = false;
+            p2higher = false;
 
             knoppenscore = this.game.add.sprite(25, 385, 'knoppenscore');
             knoppenscore.visible = false;
@@ -178,7 +184,6 @@
                         highp1 = true;
                         plek1 = w;
                         aantalhigh++;
-                        break;
                     }
 
                 }
@@ -194,12 +199,28 @@
                             console.log("trace");
                             highp2 = true;
                             plek2 = o;
-                            if (plek2 === plek1) {
-                                console.log('comes here everrrrr')
-                                if (scorep1 >= scorep2) {
-                                    plek2++;
-                                } else if (scorep2 > scorep1) {
-                                    plek1++;
+
+                            // set initial for 
+                            p2higher = true;
+
+                            if (highp1 === true && plek1 < plek2) {
+                                p1higher = true;
+                                p2higher = false;
+                            }
+
+                            if (highp1 === true && plek1 > plek2) {
+                                p2higher = true;
+                                p1higher = false;
+                            }
+
+
+                            if (plek2 === plek1 && highp1 === true) {
+                                if (highp1 >= highp2) {
+                                    p1higher = true;
+                                    p2higher = false;
+                                } else {
+                                    p2higher = true;
+                                    p1higher = false;
                                 }
                             }
 
@@ -208,9 +229,6 @@
                             console.log('player 2 = rank --> ' + plek2);
                             aantalhigh++;
 
-
-
-                            break;
                         }
 
                     }
@@ -244,7 +262,7 @@
                 let15 = this.game.add.bitmapText(this.game.width / 2 + 100, this.game.height / 2, 'scorefont', '', 50);
                 p1 = this.game.add.bitmapText(this.game.width / 8, this.game.height / 2, 'scorefont', 'speler 1', 40);
 
-                plek1tekst = this.game.add.bitmapText(this.game.width / 4 * 2.8, this.game.height / 2, 'scorefont', (plek1 + 1) + 'e      ' + scorep1, 40);
+                plek1tekst = this.game.add.bitmapText(this.game.width / 4 * 2.8, this.game.height / 2, 'scorefont', ' ' + scorep1, 40);
                 letters1 = [let11, let12, let13, let14, let15];
                 arrowcurrent1 = this.game.add.image(this.game.width / 2 - 88, this.game.height / 2 + 20, 'currentletter');
                 arrowcurrent1.anchor.setTo(0.5, 0.5);
@@ -280,7 +298,7 @@
                 let24 = this.game.add.bitmapText(this.game.width / 2 + 50, this.game.height / 2 + 180, 'scorefont', '', 50);
                 let25 = this.game.add.bitmapText(this.game.width / 2 + 100, this.game.height / 2 + 180, 'scorefont', '', 50);
 
-                plek2tekst = this.game.add.bitmapText(this.game.width / 4 * 2.8, this.game.height / 2 + 180, 'scorefont', (plek2 + 1) + 'e      ' + scorep2, 40);
+                plek2tekst = this.game.add.bitmapText(this.game.width / 4 * 2.8, this.game.height / 2 + 180, 'scorefont', ' ' + scorep2, 40);
 
                 p2 = this.game.add.bitmapText(this.game.width / 8, this.game.height / 2 + 180, 'scorefont', 'speler 2', 40);
                 letters2 = [let21, let22, let23, let24, let25];
@@ -395,6 +413,23 @@
 
             if (p1ready && p2ready) {
 
+                // shoot it in
+
+                //  1 & 2 have highscore, 1 = higher so 2 gets kicked in first
+                if (highp2 === true && p1higher && highp1) {
+                    console.log('plek 2 = ' + plek2);
+                    genname2 = name2.join('');
+                    p2ready = true;
+                    aantalhigh--;
+                    arrowcurrent2.visible = false;
+                    headertext.text = '';
+                    scoresArray.splice(plek2, 0, scorep2);
+                    nameArray.splice(plek2, 0, genname2);
+                    scoresArray.splice(5, 1);
+                    nameArray.splice(5, 1);
+                }
+
+                //  1 has highscore, is minimal case of is highscore = set
                 if (highp1 === true) {
                     console.log('plek 1 = ' + plek1);
                     genname1 = name1.join('');
@@ -409,9 +444,8 @@
 
                 }
 
-
-
-                if (highp2 === true) {
+                // if p2 has higher score, first let above 'if' (player 1) than overwrite
+                if (highp2 === true && p2higher) {
                     console.log('plek 2 = ' + plek2);
                     genname2 = name2.join('');
                     p2ready = true;
@@ -423,6 +457,9 @@
                     scoresArray.splice(5, 1);
                     nameArray.splice(5, 1);
                 }
+
+
+
 
                 knoppenscore.visible = false;
                 backbutton.visible = true;
